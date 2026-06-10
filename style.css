@@ -1,0 +1,430 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#121212;
+    color:#ffffff;
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+
+    padding:15px;
+    padding-bottom:80px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+h1,h2,h3{
+    margin-bottom:15px;
+}
+
+button{
+    border:none;
+    border-radius:10px;
+    background:#007aff;
+    color:white;
+    padding:12px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+button:active{
+    transform:scale(.98);
+}
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    background:#2c2c2c;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px;
+
+    margin-top:8px;
+    margin-bottom:8px;
+}
+
+textarea{
+    resize:vertical;
+}
+
+.topbar{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:20px;
+}
+
+.card{
+
+    background:#1e1e1e;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    margin-bottom:15px;
+}
+
+/* =====================
+ホーム
+===================== */
+
+.menu-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:10px;
+
+    margin-top:20px;
+}
+
+.menu-grid button{
+
+    height:80px;
+
+    font-size:16px;
+}
+
+/* =====================
+統計カード
+===================== */
+
+#statsArea{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:10px;
+
+    margin-top:20px;
+}
+
+.stat-card{
+
+    background:#1e1e1e;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    text-align:center;
+}
+
+.stat-card span{
+
+    display:block;
+
+    margin-top:10px;
+
+    font-size:22px;
+
+    color:#34c759;
+}
+
+/* =====================
+カレンダー
+===================== */
+
+.calendar-nav{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:10px;
+
+    margin-bottom:15px;
+}
+
+.calendar{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(7,1fr);
+
+    gap:5px;
+
+    margin-bottom:20px;
+}
+
+.day-header{
+
+    text-align:center;
+
+    color:#999;
+
+    padding:5px;
+}
+
+.day{
+
+    min-height:60px;
+
+    background:#1e1e1e;
+
+    border-radius:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+    cursor:pointer;
+}
+
+.day.selected{
+
+    border:2px solid #007aff;
+}
+
+.today-highlight{
+
+    background:#ffcc00;
+
+    color:black;
+
+    font-weight:bold;
+}
+
+.badge{
+
+    position:absolute;
+
+    bottom:4px;
+
+    right:4px;
+
+    color:#34c759;
+
+    font-size:10px;
+}
+
+/* =====================
+タスク
+===================== */
+
+.task-input{
+
+    display:flex;
+
+    gap:10px;
+}
+
+.task-input input{
+
+    flex:1;
+}
+
+.todo-item{
+
+    background:#2c2c2c;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    margin-top:8px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    width:100%;
+}
+
+.task-label{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+    flex:1;
+
+    min-width:0;
+}
+
+.task-label input{
+
+    width:auto;
+
+    margin:0;
+
+    margin-top:3px;
+
+    flex-shrink:0;
+}
+
+.task-label span{
+
+    flex:1;
+
+    display:block;
+
+    min-width:0;
+
+    white-space:normal;
+
+    word-break:break-word;
+
+    overflow-wrap:anywhere;
+
+    line-height:1.5;
+}
+
+.todo-complete{
+
+    text-decoration:line-through;
+
+    color:#888;
+}
+
+.delete-btn{
+
+    background:#ff3b30;
+
+    padding:8px 12px;
+
+    width:auto;
+
+    flex-shrink:0;
+
+    white-space:nowrap;
+}
+
+/* =====================
+添付
+===================== */
+
+.attachment-card{
+
+    background:#1e1e1e;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    margin-bottom:12px;
+}
+
+.attachment-preview{
+
+    width:100%;
+
+    border-radius:10px;
+
+    margin-top:10px;
+
+    margin-bottom:10px;
+}
+
+video.attachment-preview{
+
+    max-height:250px;
+}
+
+/* =====================
+一覧画面
+===================== */
+
+.list-card{
+
+    background:#1e1e1e;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    margin-bottom:10px;
+}
+
+.small-date{
+
+    color:#34c759;
+
+    font-size:13px;
+
+    margin-bottom:8px;
+}
+
+/* =====================
+検索
+===================== */
+
+#searchResult{
+
+    margin-top:20px;
+}
+
+/* =====================
+スマホ最適化
+===================== */
+
+@media(max-width:480px){
+
+    .menu-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    #statsArea{
+
+        grid-template-columns:1fr;
+    }
+
+}
+
+/* =====================
+添付ボタン横並び
+===================== */
+
+.attachment-actions{
+
+    display:flex;
+
+    gap:8px;
+
+    margin-top:10px;
+}
+
+.attachment-actions button{
+
+    flex:1;
+}
