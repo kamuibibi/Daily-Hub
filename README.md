@@ -1,4 +1,3 @@
-# Daily-Hub
 # Daily Hub Pro
 
 オールインワン日常管理アプリ
