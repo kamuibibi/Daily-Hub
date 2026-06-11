@@ -435,48 +435,54 @@ video.attachment-preview{
 
 .light-mode{
 
-    background:#f5f5f5;
+    background:#ffffff;
 
-    color:#111;
+    color:#111111;
+
+}
+
+.light-mode body{
+
+    background:#ffffff;
+
+    color:#111111;
 
 }
 
 .light-mode .card{
 
-    background:#ffffff;
+    background:#f5f5f5;
 
-    color:#111;
+    color:#111111;
+
+}
+
+.light-mode .stat-card{
+
+    background:#f5f5f5;
+
+    color:#111111;
 
 }
 
 .light-mode button{
 
-    background:#ffffff;
+    background:#e5e5e5;
 
-    color:#111;
-
-}
-
-.light-mode textarea{
-
-    background:#ffffff;
-
-    color:#111;
+    color:#111111;
 
 }
 
-.light-mode input{
+.light-mode input,
 
-    background:#ffffff;
-
-    color:#111;
-
-}
+.light-mode textarea,
 
 .light-mode select{
 
     background:#ffffff;
 
-    color:#111;
+    color:#111111;
+
+    border:1px solid #cccccc;
 
 }
