@@ -319,9 +319,10 @@ function searchMemo(keyword){
 window.addEventListener(
 
     "load",
-    renderMemoTags();
-    
+
     ()=>{
+
+        renderMemoTags();
 
         const tag =
         document.getElementById(
@@ -345,6 +346,8 @@ window.addEventListener(
     }
 
 );
+
+
 
 /* =====================
    タグ描画
