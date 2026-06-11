@@ -150,6 +150,10 @@ function deleteTag(){
 
     }
 
+    alert(
+        "削除しました"
+    );
+
 }
 
 /* =====================
@@ -183,9 +187,7 @@ function editTag(){
         oldTag
     );
 
-    if(
-        index === -1
-    ){
+    if(index === -1){
 
         alert(
             "タグが見つかりません"
@@ -209,43 +211,8 @@ function editTag(){
 
     }
 
-}
-
-/* =====================
-   タスク化タグ設定
-===================== */
-
-function taskTagSetting(){
-
     alert(
-        "次回実装予定"
-    );
-
-}
-
-/* =====================
-   パスコード
-===================== */
-
-function passcodeSetting(){
-
-    const code =
-    prompt(
-        "4桁以上"
-    );
-
-    if(!code){
-
-        return;
-    }
-
-    settings.passcode =
-    code;
-
-    saveSettings();
-
-    alert(
-        "保存しました"
+        "変更しました"
     );
 
 }
@@ -296,22 +263,57 @@ function applyTheme(){
         "light"
     ){
 
-        document.body
-        .classList
-        .add(
+        document.body.classList.add(
             "light-mode"
         );
 
     }
     else{
 
-        document.body
-        .classList
-        .remove(
+        document.body.classList.remove(
             "light-mode"
         );
 
     }
+
+}
+
+/* =====================
+   パスコード
+===================== */
+
+function passcodeSetting(){
+
+    const code =
+    prompt(
+        "4桁以上のパスコード"
+    );
+
+    if(!code){
+
+        return;
+    }
+
+    settings.passcode =
+    code;
+
+    saveSettings();
+
+    alert(
+        "保存しました"
+    );
+
+}
+
+/* =====================
+   タスク化タグ設定
+===================== */
+
+function taskTagSetting(){
+
+    alert(
+        "次回実装予定"
+    );
 
 }
 
