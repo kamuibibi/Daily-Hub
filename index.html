@@ -8,7 +8,7 @@
 name="viewport"
 content="width=device-width,initial-scale=1.0">
 
-<title>Daily Hub Pro v3.0</title>
+<title>Daily Hub Pro v3.1</title>
 
 <link
 rel="stylesheet"
@@ -92,18 +92,6 @@ onclick="showAttachmentList()">
 onclick="showSearchPage()">
 🔍
 検索
-</button>
-
-<button
-onclick="showStatsPage()">
-📊
-統計
-</button>
-
-<button
-onclick="showBackupPage()">
-💾
-バックアップ
 </button>
 
 <button
@@ -259,7 +247,6 @@ id="attachmentArea">
 </div>
 
 </section>
-
 <!-- =====================
 MEMO PAGE
 ===================== -->
@@ -440,7 +427,6 @@ JSON読込
 </button>
 
 </section>
-
 <!-- =====================
 SETTINGS PAGE
 ===================== -->
@@ -457,15 +443,121 @@ onclick="goHome()">
 </button>
 
 <h2>
-設定
+⚙️ 設定
 </h2>
 
 </div>
+
+<div class="card">
+
+<h3>
+🏷️ タグ管理
+</h3>
+
+<button>
+タグ追加
+</button>
+
+<button>
+タグ編集
+</button>
+
+<button>
+タグ削除
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>
+📝 タスク化メモ
+</h3>
+
+<button>
+設定
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>
+🔒 パスコード
+</h3>
+
+<button>
+設定
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>
+🎨 テーマ
+</h3>
+
+<button>
+ライトモード
+</button>
+
+<button>
+ダークモード
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>
+📊 統計
+</h3>
+
+<button
+onclick="showStatsPage()">
+統計を開く
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>
+💾 バックアップ
+</h3>
+
+<button
+onclick="showBackupPage()">
+バックアップを開く
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>
+ℹ️ アプリ情報
+</h3>
+
+<p>
+Daily Hub Pro v3.1
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+🗑️ データ管理
+</h3>
 
 <button
 onclick="clearAllData()">
 全データ削除
 </button>
+
+</div>
 
 </section>
 
