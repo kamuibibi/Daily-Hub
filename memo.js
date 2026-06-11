@@ -1,6 +1,6 @@
 /* =====================
-   Daily Hub Pro v3.0
-   Memo
+    Daily Hub Pro v3.0
+    Memo
 ===================== */
 
 /* =====================
@@ -361,6 +361,14 @@ function renderMemoTags(){
     );
 
     if(!select){
+
+        return;
+    }
+
+    if(
+        typeof settings ===
+        "undefined"
+    ){
 
         return;
     }
