@@ -275,5 +275,21 @@ window.addEventListener(
         applyTheme();
 
     }
+    
+/* =====================
+   タスク化タグ設定
+===================== */
+
+function taskTagSetting(){
+
+    alert(
+        "次回実装予定"
+    );
+
+}
+
 
 );
+
+
+
