@@ -319,7 +319,8 @@ function searchMemo(keyword){
 window.addEventListener(
 
     "load",
-
+    renderMemoTags();
+    
     ()=>{
 
         const tag =
@@ -344,3 +345,56 @@ window.addEventListener(
     }
 
 );
+
+/* =====================
+   タグ描画
+===================== */
+
+function renderMemoTags(){
+
+    const select =
+    document.getElementById(
+        "memoTag"
+    );
+
+    if(!select){
+
+        return;
+    }
+
+    select.innerHTML = "";
+
+    const first =
+    document.createElement(
+        "option"
+    );
+
+    first.value = "";
+
+    first.textContent =
+    "タグ選択";
+
+    select.appendChild(
+        first
+    );
+
+    settings.tags.forEach(tag=>{
+
+        const option =
+        document.createElement(
+            "option"
+        );
+
+        option.value =
+        tag;
+
+        option.textContent =
+        tag;
+
+        select.appendChild(
+            option
+        );
+
+    });
+
+}
