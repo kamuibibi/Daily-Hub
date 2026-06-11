@@ -405,6 +405,7 @@ JSON読込
 </button>
 
 </section>
+
 <!-- =====================
 SETTINGS PAGE
 ===================== -->
@@ -432,15 +433,18 @@ onclick="goHome()">
 🏷️ タグ管理
 </h3>
 
-<button>
+<button
+onclick="addTag()">
 タグ追加
 </button>
 
-<button>
+<button
+onclick="editTag()">
 タグ編集
 </button>
 
-<button>
+<button
+onclick="deleteTag()">
 タグ削除
 </button>
 
@@ -452,7 +456,8 @@ onclick="goHome()">
 📝 タスク化メモ
 </h3>
 
-<button>
+<button
+onclick="taskTagSetting()">
 設定
 </button>
 
@@ -464,7 +469,8 @@ onclick="goHome()">
 🔒 パスコード
 </h3>
 
-<button>
+<button
+onclick="passcodeSetting()">
 設定
 </button>
 
@@ -476,11 +482,13 @@ onclick="goHome()">
 🎨 テーマ
 </h3>
 
-<button>
+<button
+onclick="setLightMode()">
 ライトモード
 </button>
 
-<button>
+<button
+onclick="setDarkMode()">
 ダークモード
 </button>
 
