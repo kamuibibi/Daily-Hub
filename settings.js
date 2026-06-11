@@ -98,7 +98,15 @@ function addTag(){
 
     saveSettings();
 
-    renderMemoTags();
+    if(
+        typeof renderMemoTags
+        ===
+        "function"
+    ){
+
+        renderMemoTags();
+
+    }
 
     alert(
         "追加しました"
@@ -132,7 +140,15 @@ function deleteTag(){
 
     saveSettings();
 
-    renderMemoTags();
+    if(
+        typeof renderMemoTags
+        ===
+        "function"
+    ){
+
+        renderMemoTags();
+
+    }
 
 }
 
@@ -167,7 +183,13 @@ function editTag(){
         oldTag
     );
 
-    if(index === -1){
+    if(
+        index === -1
+    ){
+
+        alert(
+            "タグが見つかりません"
+        );
 
         return;
     }
@@ -177,12 +199,59 @@ function editTag(){
 
     saveSettings();
 
-    renderMemoTags();
+    if(
+        typeof renderMemoTags
+        ===
+        "function"
+    ){
+
+        renderMemoTags();
+
+    }
 
 }
 
 /* =====================
-   ライト
+   タスク化タグ設定
+===================== */
+
+function taskTagSetting(){
+
+    alert(
+        "次回実装予定"
+    );
+
+}
+
+/* =====================
+   パスコード
+===================== */
+
+function passcodeSetting(){
+
+    const code =
+    prompt(
+        "4桁以上"
+    );
+
+    if(!code){
+
+        return;
+    }
+
+    settings.passcode =
+    code;
+
+    saveSettings();
+
+    alert(
+        "保存しました"
+    );
+
+}
+
+/* =====================
+   ライトモード
 ===================== */
 
 function setLightMode(){
@@ -199,7 +268,7 @@ function setLightMode(){
 }
 
 /* =====================
-   ダーク
+   ダークモード
 ===================== */
 
 function setDarkMode(){
@@ -234,29 +303,15 @@ function applyTheme(){
         );
 
     }
+    else{
 
-}
+        document.body
+        .classList
+        .remove(
+            "light-mode"
+        );
 
-/* =====================
-   パスコード
-===================== */
-
-function passcodeSetting(){
-
-    const code =
-    prompt(
-        "4桁以上"
-    );
-
-    if(!code){
-
-        return;
     }
-
-    settings.passcode =
-    code;
-
-    saveSettings();
 
 }
 
@@ -275,21 +330,5 @@ window.addEventListener(
         applyTheme();
 
     }
-    
-/* =====================
-   タスク化タグ設定
-===================== */
-
-function taskTagSetting(){
-
-    alert(
-        "次回実装予定"
-    );
-
-}
-
 
 );
-
-
-
