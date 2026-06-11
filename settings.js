@@ -318,9 +318,141 @@ function taskTagSetting(){
 }
 
 /* =====================
-   起動
+   タグ一覧描画
 ===================== */
 
+function renderTagList(){
+
+    const area =
+    document.getElementById(
+        "tagListArea"
+    );
+
+    if(!area){
+
+        return;
+    }
+
+    area.innerHTML = "";
+
+    settings.tags.forEach(
+
+        (tag,index)=>{
+
+            const row =
+            document.createElement(
+                "div"
+            );
+
+            row.className =
+            "list-card";
+
+            row.innerHTML =
+            `
+            <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            ">
+
+                <span>
+                ${tag}
+                </span>
+
+                <div>
+
+                    <button
+                    onclick="editTagByIndex(${index})">
+                    編集
+                    </button>
+
+                    <button
+                    onclick="deleteTagByIndex(${index})">
+                    削除
+                    </button>
+
+                </div>
+
+            </div>
+            `;
+
+            area.appendChild(
+                row
+            );
+
+        }
+
+    );
+
+}
+
+/* =====================
+   タグ編集
+===================== */
+
+function editTagByIndex(
+    index
+){
+
+    const newTag =
+    prompt(
+        "新しいタグ名",
+        settings.tags[index]
+    );
+
+    if(!newTag){
+
+        return;
+    }
+
+    settings.tags[index] =
+    newTag;
+
+    saveSettings();
+
+    renderTagList();
+
+    renderMemoTags();
+
+}
+
+/* =====================
+   タグ削除
+===================== */
+
+function deleteTagByIndex(
+    index
+){
+
+    const ok =
+    confirm(
+        settings.tags[index]
+        +
+        " を削除しますか？"
+    );
+
+    if(!ok){
+
+        return;
+    }
+
+    settings.tags.splice(
+        index,
+        1
+    );
+
+    saveSettings();
+
+    renderTagList();
+
+    renderMemoTags();
+
+}
+
+
+/* =====================
+   起動
+===================== */
 window.addEventListener(
 
     "load",
@@ -330,6 +462,8 @@ window.addEventListener(
         loadSettings();
 
         applyTheme();
+
+        renderTagList();
 
     }
 
