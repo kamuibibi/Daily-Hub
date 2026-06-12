@@ -377,19 +377,20 @@ async function downloadAttachment(id){
             blob
         );
 
-        const a =
-        document.createElement(
-            "a"
-        );
+const a =
+document.createElement(
+    "a"
+);
 
-        a.href = url;
+a.href = url;
 
-        a.download =
-        file.name ||
-        "download";
+a.download =
+file.title ||
+file.name ||
+"download";
 
-        document.body
-        .appendChild(a);
+document.body
+.appendChild(a);
 
         a.click();
 
