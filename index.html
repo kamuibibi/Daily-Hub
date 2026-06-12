@@ -437,20 +437,28 @@ onclick="goHome()">
 🏷️ タグ管理
 </h3>
 
+<div class="task-input">
+
+<input
+type="text"
+id="newTagInput"
+placeholder="タグ名">
+
 <button
 onclick="addTag()">
-タグ追加
+追加
 </button>
 
-<!-- タグ一覧表示エリア -->
+</div>
 
-<div
-id="tagListArea">
+<h4>
+登録済みタグ
+</h4>
+
+<div id="tagListArea">
 </div>
 
 </div>
-
-<div class="card">
 
 <h3>
 📝 タスク化メモ
