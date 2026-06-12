@@ -105,7 +105,9 @@ function createId(){
 
 async function saveAttachmentToDB(
     date,
-    file
+    file,
+    title
+    
 ){
 
     if(!db){
