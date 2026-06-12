@@ -82,10 +82,13 @@ function saveSettings(){
 
 function addTag(){
 
-    const tag =
-    prompt(
-        "タグ名を入力"
+    const input =
+    document.getElementById(
+        "newTagInput"
     );
+
+    const tag =
+    input.value.trim();
 
     if(!tag){
 
@@ -96,21 +99,13 @@ function addTag(){
         tag
     );
 
+    input.value = "";
+
     saveSettings();
 
-    if(
-        typeof renderMemoTags
-        ===
-        "function"
-    ){
+    renderMemoTags();
 
-        renderMemoTags();
-
-    }
-
-    alert(
-        "追加しました"
-    );
+    renderTagList();
 
 }
 
@@ -390,14 +385,15 @@ function renderTagList(){
    タグ編集
 ===================== */
 
-function editTagByIndex(
-    index
-){
+function editTag(index){
+
+    const current =
+    settings.tags[index];
 
     const newTag =
     prompt(
-        "新しいタグ名",
-        settings.tags[index]
+        "変更後タグ",
+        current
     );
 
     if(!newTag){
@@ -410,9 +406,9 @@ function editTagByIndex(
 
     saveSettings();
 
-    renderTagList();
-
     renderMemoTags();
+
+    renderTagList();
 
 }
 
@@ -420,15 +416,11 @@ function editTagByIndex(
    タグ削除
 ===================== */
 
-function deleteTagByIndex(
-    index
-){
+function deleteTag(index){
 
     const ok =
     confirm(
-        settings.tags[index]
-        +
-        " を削除しますか？"
+        "削除しますか？"
     );
 
     if(!ok){
@@ -443,9 +435,9 @@ function deleteTagByIndex(
 
     saveSettings();
 
-    renderTagList();
-
     renderMemoTags();
+
+    renderTagList();
 
 }
 
@@ -453,6 +445,7 @@ function deleteTagByIndex(
 /* =====================
    起動
 ===================== */
+
 window.addEventListener(
 
     "load",
@@ -468,3 +461,64 @@ window.addEventListener(
     }
 
 );
+
+function renderTagList(){
+
+    const area =
+    document.getElementById(
+        "tagListArea"
+    );
+
+    if(!area){
+
+        return;
+    }
+
+    area.innerHTML = "";
+
+    settings.tags.forEach(
+
+        (tag,index)=>{
+
+            const row =
+            document.createElement(
+                "div"
+            );
+
+            row.className =
+            "tag-row";
+
+            row.innerHTML =
+
+            `
+            <span>
+            ${tag}
+            </span>
+
+            <div>
+
+            <button
+            onclick="editTag(${index})">
+            編集
+            </button>
+
+            <button
+            onclick="deleteTag(${index})">
+            削除
+            </button>
+
+            </div>
+            `;
+
+            area.appendChild(
+                row
+            );
+
+        }
+
+    );
+
+}
+
+
+
