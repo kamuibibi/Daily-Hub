@@ -84,7 +84,7 @@ function addTag(){
 
     const input =
     document.getElementById(
-        "newTagInput"
+        "tagInput"
     );
 
     const tag =
@@ -99,13 +99,13 @@ function addTag(){
         tag
     );
 
-    input.value = "";
-
     saveSettings();
+
+    renderTagList();
 
     renderMemoTags();
 
-    renderTagList();
+    input.value = "";
 
 }
 
