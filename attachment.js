@@ -38,10 +38,21 @@ async function saveAttachment(){
         of input.files
     ){
 
-        await saveAttachmentToDB(
-            dateKey,
-            file
-        );
+const title =
+prompt(
+    file.name +
+    "\n\n表示名を入力"
+);
+
+await saveAttachmentToDB(
+
+    key,
+
+    file,
+
+    title || file.name
+
+);
 
     }
 
