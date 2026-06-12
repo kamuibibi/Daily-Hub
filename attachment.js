@@ -46,13 +46,15 @@ prompt(
 
 await saveAttachmentToDB(
 
-    key,
+    dateKey,
 
     file,
 
     title || file.name
 
 );
+
+
 
     }
 
@@ -170,7 +172,7 @@ async function renderAttachmentArea(){
         card.innerHTML =
         `
         <div>
-        ${file.name}
+        ${file.title || file.name}
         </div>
 
         ${preview}
@@ -309,9 +311,9 @@ async function renderAttachmentList(){
         ${file.date}
         </div>
 
-        <div>
-        ${file.name}
-        </div>
+       <div>
+        ${file.title || file.name}
+        </div> 
 
         ${preview}
 
