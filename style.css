@@ -441,7 +441,7 @@ video.attachment-preview{
 
 }
 
-.light-mode body{
+body.light-mode{
 
     background:#ffffff;
 
