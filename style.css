@@ -538,3 +538,18 @@ body.light-mode{
     color:#111111;
 
 }
+
+/* =====================
+   Light Mode Today
+===================== */
+
+.light-mode .today-highlight{
+
+    background:#ffcc00 !important;
+
+    color:#000000 !important;
+
+    font-weight:bold;
+
+}
+
