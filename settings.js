@@ -84,7 +84,7 @@ function addTag(){
 
     const input =
     document.getElementById(
-        "tagInput"
+        "newTagInput"
     );
 
     const tag =
@@ -92,7 +92,12 @@ function addTag(){
 
     if(!tag){
 
+        alert(
+            "タグ名を入力してください"
+        );
+
         return;
+
     }
 
     settings.tags.push(
