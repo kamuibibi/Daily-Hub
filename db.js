@@ -127,24 +127,26 @@ async function saveAttachmentToDB(
             STORE_ATTACHMENTS
         );
 
-        const record = {
+const record = {
 
-            id:createId(),
+    id:createId(),
 
-            date:date,
+    date:date,
 
-            name:file.name,
+    title:title,
 
-            type:file.type,
+    name:file.name,
 
-            size:file.size,
+    type:file.type,
 
-            createdAt:
-            Date.now(),
+    size:file.size,
 
-            file:file
+    createdAt:
+    Date.now(),
 
-        };
+    file:file
+
+};
 
         const request =
         store.add(record);
