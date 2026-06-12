@@ -19,7 +19,12 @@ function showSearchPage(){
    検索実行
 ===================== */
 
-function runSearch(){
+async function runSearch(){
+    
+    const attachmentResults =
+await searchAttachment(
+    keyword
+);
 
     const keyword =
     document
@@ -81,6 +86,25 @@ function runSearch(){
     });
 
     taskResults.forEach(item=>{
+        
+        attachmentResults.forEach(file=>{
+
+    html +=
+    `
+    <div class="list-card">
+
+        <div class="small-date">
+        ${file.date}
+        </div>
+
+        <div>
+        📎 ${file.title || file.name}
+        </div>
+
+    </div>
+    `;
+
+});
 
         html +=
         `
@@ -113,3 +137,36 @@ function runSearch(){
     html;
 
 }
+
+
+/* =====================
+   添付検索
+===================== */
+
+async function searchAttachment(
+    keyword
+){
+
+    const files =
+    await getAllAttachments();
+
+    return files.filter(file=>
+
+        (file.title || "")
+        .toLowerCase()
+        .includes(
+            keyword.toLowerCase()
+        )
+
+        ||
+
+        (file.name || "")
+        .toLowerCase()
+        .includes(
+            keyword.toLowerCase()
+        )
+
+    );
+
+} 
+
