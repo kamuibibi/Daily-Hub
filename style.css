@@ -486,3 +486,55 @@ video.attachment-preview{
     border:1px solid #cccccc;
 
 }
+
+/* =====================
+   Light Mode Calendar
+===================== */
+
+.light-mode .day{
+
+    background:#ffffff;
+
+    color:#111111;
+
+    border:1px solid #cccccc;
+
+}
+
+.light-mode .day-header{
+
+    color:#666666;
+
+}
+
+.light-mode .list-card{
+
+    background:#f5f5f5;
+
+    color:#111111;
+
+}
+
+.light-mode .attachment-card{
+
+    background:#f5f5f5;
+
+    color:#111111;
+
+}
+
+.light-mode .todo-item{
+
+    background:#ffffff;
+
+    color:#111111;
+
+    border:1px solid #cccccc;
+
+}
+
+.light-mode .task-label span{
+
+    color:#111111;
+
+}
