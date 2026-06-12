@@ -155,6 +155,9 @@ function renderCalendar(){
             cell.classList.add(
                 "today-highlight"
             );
+            cell.style.background ="#ffcc00";
+
+            cell.style.color ="#000000";
 
         }
 
