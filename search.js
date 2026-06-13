@@ -21,6 +21,9 @@ function showSearchPage(){
 
 async function runSearch(){
 
+    alert("検索開始");
+
+
     const keyword =
     document
     .getElementById(
