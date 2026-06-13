@@ -161,6 +161,11 @@ function showPage(id){
     .add(
         "active"
     );
+    
+    window.scrollTo(
+    0,
+    0
+);
 
 }
 
