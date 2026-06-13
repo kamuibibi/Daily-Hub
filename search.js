@@ -58,6 +58,11 @@ async function runSearch(){
     searchTask(
         keyword
     );
+    
+    const attachmentResults =
+await searchAttachment(
+    keyword
+);
 
     let html = "";
 
@@ -90,6 +95,25 @@ async function runSearch(){
         </div>
         `;
     });
+    
+    attachmentResults.forEach(file=>{
+
+    html +=
+    `
+    <div class="list-card">
+
+        <div class="small-date">
+        ${file.date}
+        </div>
+
+        <div>
+        📎 ${file.title || file.name}
+        </div>
+
+    </div>
+    `;
+
+});
 
     if(!html){
 
