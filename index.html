@@ -36,15 +36,42 @@ placeholder="検索">
 
 <button
 onclick="runSearch()">
-検索
+🔍 検索
 </button>
 
-<div id="searchResult"></div>
+<div
+id="searchResult">
+</div>
 
-<!-- カレンダー -->
+<!-- =====================
+CALENDAR
+===================== -->
+
+<div class="topbar">
+
+<h2 id="calendarTitle">
+2026年6月
+</h2>
+
+</div>
 
 <div class="calendar-nav">
-...
+
+<button
+onclick="prevMonth()">
+◀
+</button>
+
+<button
+onclick="goToday()">
+今日
+</button>
+
+<button
+onclick="nextMonth()">
+▶
+</button>
+
 </div>
 
 <div
@@ -55,30 +82,93 @@ class="calendar">
 <div
 id="selectedDateBox"
 class="card">
-...
+
+<h3 id="selectedDate">
+日付未選択
+</h3>
+
 </div>
 
+<!-- =====================
+MEMO
+===================== -->
+
 <div class="card">
+
+<h3>
 📝 メモ
-...
+</h3>
+
+<select id="memoTag">
+</select>
+
+<textarea
+id="memoInput"
+rows="5"
+placeholder="メモを入力">
+</textarea>
+
 </div>
 
+<!-- =====================
+TASK
+===================== -->
+
 <div class="card">
+
+<h3>
 ✅ タスク
-...
-</div>
+</h3>
 
-<div class="card">
-📎 添付
-...
-</div>
+<div class="task-input">
 
-
+<input
+type="text"
+id="taskInput"
+placeholder="タスク入力">
 
 <button
-onclick="showCalendarPage()">
-📅 カレンダー
+onclick="addTask()">
+追加
 </button>
+
+</div>
+
+<div
+id="taskArea">
+</div>
+
+</div>
+
+<!-- =====================
+ATTACHMENT
+===================== -->
+
+<div class="card">
+
+<h3>
+📎 添付
+</h3>
+
+<input
+type="file"
+id="attachmentInput"
+multiple>
+
+<button
+onclick="saveAttachment()">
+添付保存
+</button>
+
+<div
+id="attachmentArea">
+</div>
+
+</div>
+
+<!-- =====================
+MENU
+===================== -->
 
 <button
 onclick="showMemoList()">
@@ -100,84 +190,44 @@ onclick="showSettingsPage()">
 ⚙️ 設定
 </button>
 
-</div>
-
-<!-- 統計カード -->
-<div id="statsArea">
-
-<div class="stat-card">
-メモ
-<span id="memoCount">0</span>
-</div>
-
-<div class="stat-card">
-タスク
-<span id="taskCount">0</span>
-</div>
-
-<div class="stat-card">
-添付
-<span id="attachmentCount">0</span>
-</div>
-
-<div class="stat-card">
-容量
-<span id="storageSize">0MB</span>
-</div>
-
-</div>
-
-<button onclick="showMemoList()">
-📝 メモ一覧
-</button>
-
-<button onclick="showTaskList()">
-✅ タスク一覧
-</button>
-
-<button onclick="showAttachmentList()">
-📎 添付一覧
-</button>
-
-<button onclick="showSearchPage()">
-🔍 検索
-</button>
-
-<button onclick="showSettingsPage()">
-⚙️ 設定
-</button>
-
-</div>
+<!-- =====================
+STATS
+===================== -->
 
 <div id="statsArea">
 
 <div class="stat-card">
 メモ
-<span id="memoCount">0</span>
+<span id="memoCount">
+0
+</span>
 </div>
 
 <div class="stat-card">
 タスク
-<span id="taskCount">0</span>
+<span id="taskCount">
+0
+</span>
 </div>
 
 <div class="stat-card">
 添付
-<span id="attachmentCount">0</span>
+<span id="attachmentCount">
+0
+</span>
 </div>
 
 <div class="stat-card">
 容量
-<span id="storageSize">0MB</span>
+<span id="storageSize">
+0MB
+</span>
 </div>
 
 </div>
 
 </section>
 
-<!-- =====================
-CALENDAR
-===================== -->
 
 <!-- =====================
 MEMO PAGE
@@ -261,42 +311,6 @@ id="attachmentListArea">
 </section>
 
 <!-- =====================
-SEARCH PAGE
-===================== -->
-
-<section
-id="searchPage"
-class="page">
-
-<div class="topbar">
-
-<button
-onclick="goHome()">
-← ホーム
-</button>
-
-<h2>
-検索
-</h2>
-
-</div>
-
-<input
-id="searchInput"
-placeholder="検索">
-
-<button
-onclick="runSearch()">
-検索
-</button>
-
-<div
-id="searchResult">
-</div>
-
-</section>
-
-<!-- =====================
 STATS PAGE
 ===================== -->
 
@@ -360,6 +374,7 @@ JSON読込
 
 </section>
 
+
 <!-- =====================
 SETTINGS PAGE
 ===================== -->
@@ -380,8 +395,6 @@ onclick="goHome()">
 </h2>
 
 </div>
-
-<div class="card">
 
 <!-- タグ管理 -->
 
@@ -409,10 +422,15 @@ onclick="addTag()">
 登録済みタグ
 </h4>
 
-<div id="tagListArea">
+<div
+id="tagListArea">
 </div>
 
 </div>
+
+<!-- タスク化メモ -->
+
+<div class="card">
 
 <h3>
 📝 タスク化メモ
@@ -424,6 +442,8 @@ onclick="taskTagSetting()">
 </button>
 
 </div>
+
+<!-- パスコード -->
 
 <div class="card">
 
@@ -437,6 +457,8 @@ onclick="passcodeSetting()">
 </button>
 
 </div>
+
+<!-- テーマ -->
 
 <div class="card">
 
@@ -456,6 +478,8 @@ onclick="setDarkMode()">
 
 </div>
 
+<!-- 統計 -->
+
 <div class="card">
 
 <h3>
@@ -468,6 +492,8 @@ onclick="showStatsPage()">
 </button>
 
 </div>
+
+<!-- バックアップ -->
 
 <div class="card">
 
@@ -482,6 +508,8 @@ onclick="showBackupPage()">
 
 </div>
 
+<!-- アプリ情報 -->
+
 <div class="card">
 
 <h3>
@@ -493,6 +521,8 @@ Daily Hub Pro v3.1
 </p>
 
 </div>
+
+<!-- データ削除 -->
 
 <div class="card">
 
@@ -509,6 +539,10 @@ onclick="clearAllData()">
 
 </section>
 
+<!-- =====================
+SCRIPT
+===================== -->
+
 <script src="db.js"></script>
 <script src="calendar.js"></script>
 <script src="memo.js"></script>
@@ -522,3 +556,5 @@ onclick="clearAllData()">
 
 </body>
 </html>
+
+
