@@ -59,11 +59,6 @@ async function runSearch(){
         keyword
     );
 
-    const attachmentResults =
-    await searchAttachment(
-        keyword
-    );
-
     let html = "";
 
     memoResults.forEach(item=>{
@@ -71,18 +66,14 @@ async function runSearch(){
         html +=
         `
         <div class="list-card">
-
             <div class="small-date">
             ${item.date}
             </div>
-
             <div>
             📝 ${item.text}
             </div>
-
         </div>
         `;
-
     });
 
     taskResults.forEach(item=>{
@@ -90,37 +81,14 @@ async function runSearch(){
         html +=
         `
         <div class="list-card">
-
             <div class="small-date">
             ${item.date}
             </div>
-
             <div>
             ✅ ${item.task.text}
             </div>
-
         </div>
         `;
-
-    });
-
-    attachmentResults.forEach(file=>{
-
-        html +=
-        `
-        <div class="list-card">
-
-            <div class="small-date">
-            ${file.date}
-            </div>
-
-            <div>
-            📎 ${file.title || file.name}
-            </div>
-
-        </div>
-        `;
-
     });
 
     if(!html){
