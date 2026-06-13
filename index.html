@@ -30,18 +30,50 @@ class="page active">
 Daily Hub Pro
 </h1>
 
-<!-- 検索 -->
 <input
-id="homeSearchInput"
+id="searchInput"
 placeholder="検索">
 
 <button
-onclick="showSearchPage()">
-🔍 検索
+onclick="runSearch()">
+検索
 </button>
 
-<!-- メニュー -->
-<div class="menu-grid">
+<div id="searchResult"></div>
+
+<!-- カレンダー -->
+
+<div class="calendar-nav">
+...
+</div>
+
+<div
+id="calendar"
+class="calendar">
+</div>
+
+<div
+id="selectedDateBox"
+class="card">
+...
+</div>
+
+<div class="card">
+📝 メモ
+...
+</div>
+
+<div class="card">
+✅ タスク
+...
+</div>
+
+<div class="card">
+📎 添付
+...
+</div>
+
+
 
 <button
 onclick="showCalendarPage()">
@@ -95,10 +127,6 @@ onclick="showSettingsPage()">
 
 </div>
 
-<button onclick="showCalendarPage()">
-📅 カレンダー
-</button>
-
 <button onclick="showMemoList()">
 📝 メモ一覧
 </button>
@@ -151,123 +179,6 @@ onclick="showSettingsPage()">
 CALENDAR
 ===================== -->
 
-<section
-id="calendarPage"
-class="page">
-
-<div class="topbar">
-
-<button
-onclick="goHome()">
-← ホーム
-</button>
-
-<h2 id="calendarTitle">
-2026年6月
-</h2>
-
-</div>
-
-<div class="calendar-nav">
-
-<button
-onclick="prevMonth()">
-◀
-</button>
-
-<button
-onclick="goToday()">
-今日
-</button>
-
-<button
-onclick="nextMonth()">
-▶
-</button>
-
-</div>
-
-<div
-id="calendar"
-class="calendar">
-</div>
-
-<div
-id="selectedDateBox"
-class="card">
-
-<h3 id="selectedDate">
-日付未選択
-</h3>
-
-</div>
-
-<div class="card">
-
-<h3>
-📝 メモ
-</h3>
-
-<select id="memoTag">
-</select>
-
-<textarea
-id="memoInput"
-rows="5"
-placeholder="メモを入力">
-</textarea>
-
-</div>
-
-<div class="card">
-
-<h3>
-✅ タスク
-</h3>
-
-<div class="task-input">
-
-<input
-type="text"
-id="taskInput"
-placeholder="タスク入力">
-
-<button
-onclick="addTask()">
-追加
-</button>
-
-</div>
-
-<div
-id="taskArea">
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>
-📎 添付
-</h3>
-
-<input
-type="file"
-id="attachmentInput"
-multiple>
-
-<button
-onclick="saveAttachment()">
-添付保存
-</button>
-
-<div
-id="attachmentArea">
-</div>
-
-</div>
-
-</section>
 <!-- =====================
 MEMO PAGE
 ===================== -->
