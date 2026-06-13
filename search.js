@@ -150,6 +150,11 @@ async function searchAttachment(
     const files =
     await getAllAttachments();
 
+    console.log(
+        "添付データ",
+        files
+    );
+
     return files.filter(file=>
 
         (file.title || "")
@@ -168,5 +173,5 @@ async function searchAttachment(
 
     );
 
-} 
+}
 
