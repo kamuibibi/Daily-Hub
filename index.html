@@ -30,7 +30,70 @@ class="page active">
 Daily Hub Pro
 </h1>
 
+<!-- 検索 -->
+<input
+id="homeSearchInput"
+placeholder="検索">
+
+<button
+onclick="showSearchPage()">
+🔍 検索
+</button>
+
+<!-- メニュー -->
 <div class="menu-grid">
+
+<button
+onclick="showCalendarPage()">
+📅 カレンダー
+</button>
+
+<button
+onclick="showMemoList()">
+📝 メモ一覧
+</button>
+
+<button
+onclick="showTaskList()">
+✅ タスク一覧
+</button>
+
+<button
+onclick="showAttachmentList()">
+📎 添付一覧
+</button>
+
+<button
+onclick="showSettingsPage()">
+⚙️ 設定
+</button>
+
+</div>
+
+<!-- 統計カード -->
+<div id="statsArea">
+
+<div class="stat-card">
+メモ
+<span id="memoCount">0</span>
+</div>
+
+<div class="stat-card">
+タスク
+<span id="taskCount">0</span>
+</div>
+
+<div class="stat-card">
+添付
+<span id="attachmentCount">0</span>
+</div>
+
+<div class="stat-card">
+容量
+<span id="storageSize">0MB</span>
+</div>
+
+</div>
 
 <button onclick="showCalendarPage()">
 📅 カレンダー
