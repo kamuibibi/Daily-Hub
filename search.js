@@ -20,11 +20,6 @@ function showSearchPage(){
 ===================== */
 
 async function runSearch(){
-    
-    const attachmentResults =
-await searchAttachment(
-    keyword
-);
 
     const keyword =
     document
@@ -64,6 +59,11 @@ await searchAttachment(
         keyword
     );
 
+    const attachmentResults =
+    await searchAttachment(
+        keyword
+    );
+
     let html = "";
 
     memoResults.forEach(item=>{
@@ -86,25 +86,6 @@ await searchAttachment(
     });
 
     taskResults.forEach(item=>{
-        
-        attachmentResults.forEach(file=>{
-
-    html +=
-    `
-    <div class="list-card">
-
-        <div class="small-date">
-        ${file.date}
-        </div>
-
-        <div>
-        📎 ${file.title || file.name}
-        </div>
-
-    </div>
-    `;
-
-});
 
         html +=
         `
@@ -116,6 +97,25 @@ await searchAttachment(
 
             <div>
             ✅ ${item.task.text}
+            </div>
+
+        </div>
+        `;
+
+    });
+
+    attachmentResults.forEach(file=>{
+
+        html +=
+        `
+        <div class="list-card">
+
+            <div class="small-date">
+            ${file.date}
+            </div>
+
+            <div>
+            📎 ${file.title || file.name}
             </div>
 
         </div>
