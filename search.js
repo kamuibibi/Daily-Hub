@@ -172,6 +172,17 @@ async function searchAttachment(
         )
 
     );
+    
+    const files =
+await getAllAttachments();
+
+alert(
+    JSON.stringify(
+        files[0],
+        null,
+        2
+    )
+);
 
 }
 
