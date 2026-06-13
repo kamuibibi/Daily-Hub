@@ -30,7 +30,7 @@ function renderCalendar(){
 
     document
     .getElementById(
-        "calendarTitle"
+        "appTitle"
     )
     .textContent =
     `${currentYear}年${currentMonth}月`;
