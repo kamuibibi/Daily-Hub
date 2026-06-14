@@ -117,20 +117,12 @@ function setupMemoAutoSave(){
 
 function showMemoList(){
 
-    const activeElement =
-    document.activeElement;
-
     if(
-        activeElement &&
-        typeof activeElement.blur === "function" &&
-        (
-            activeElement.tagName === "TEXTAREA" ||
-            activeElement.tagName === "INPUT" ||
-            activeElement.tagName === "SELECT"
-        )
+        document.activeElement &&
+        typeof document.activeElement.blur === "function"
     ){
 
-        activeElement.blur();
+        document.activeElement.blur();
 
     }
 
@@ -152,14 +144,14 @@ function showMemoList(){
             0
         );
 
-        requestAnimationFrame(()=>{
+        setTimeout(()=>{
 
             window.scrollTo(
                 0,
                 0
             );
 
-        });
+        }, 50);
 
     });
 
