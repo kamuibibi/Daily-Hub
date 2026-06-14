@@ -117,11 +117,51 @@ function setupMemoAutoSave(){
 
 function showMemoList(){
 
+    const activeElement =
+    document.activeElement;
+
+    if(
+        activeElement &&
+        typeof activeElement.blur === "function" &&
+        (
+            activeElement.tagName === "TEXTAREA" ||
+            activeElement.tagName === "INPUT" ||
+            activeElement.tagName === "SELECT"
+        )
+    ){
+
+        activeElement.blur();
+
+    }
+
     showPage(
         "memoPage"
     );
 
     renderMemoList();
+
+    window.scrollTo(
+        0,
+        0
+    );
+
+    requestAnimationFrame(()=>{
+
+        window.scrollTo(
+            0,
+            0
+        );
+
+        requestAnimationFrame(()=>{
+
+            window.scrollTo(
+                0,
+                0
+            );
+
+        });
+
+    });
 
 }
 
