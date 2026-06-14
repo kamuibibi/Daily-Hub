@@ -16,13 +16,70 @@ function showSearchPage(){
 }
 
 /* =====================
+   検索補助
+===================== */
+
+function normalizeSearchText(text){
+
+    return String(text || "")
+    .toLowerCase()
+    .trim();
+
+}
+
+function makeSearchSnippet(text){
+
+    const source =
+    String(text || "")
+    .trim();
+
+    if(source.length <= 90){
+
+        return source;
+
+    }
+
+    return source.slice(0, 90) + "...";
+
+}
+
+function buildSearchCard(
+    typeLabel,
+    icon,
+    date,
+    text
+){
+
+    return `
+    <div class="list-card search-card">
+
+        <div class="small-date">
+        ${escapeHtml(date || "日付なし")}
+        </div>
+
+        <div class="search-type">
+        ${icon} ${escapeHtml(typeLabel)}
+        </div>
+
+        <div class="search-text">
+        ${escapeHtml(
+            makeSearchSnippet(text)
+        ).replaceAll(
+            "\n",
+            "<br>"
+        )}
+        </div>
+
+    </div>
+    `;
+
+}
+
+/* =====================
    検索実行
 ===================== */
 
 async function runSearch(){
-
-    alert("検索開始");
-
 
     const keyword =
     document
@@ -52,6 +109,13 @@ async function runSearch(){
         return;
     }
 
+    resultArea.innerHTML =
+    `
+    <div class="list-card">
+    検索中...
+    </div>
+    `;
+
     const memoResults =
     searchMemo(
         keyword
@@ -61,64 +125,68 @@ async function runSearch(){
     searchTask(
         keyword
     );
-    
+
     const attachmentResults =
-await searchAttachment(
-    keyword
-);
+    await searchAttachment(
+        keyword
+    );
 
     let html = "";
+
+    const total =
+    memoResults.length +
+    taskResults.length +
+    attachmentResults.length;
+
+    html +=
+    `
+    <div class="list-card search-summary">
+    検索結果: ${total}件
+    </div>
+    `;
 
     memoResults.forEach(item=>{
 
         html +=
-        `
-        <div class="list-card">
-            <div class="small-date">
-            ${item.date}
-            </div>
-            <div>
-            📝 ${item.text}
-            </div>
-        </div>
-        `;
+        buildSearchCard(
+            "メモ",
+            "📝",
+            item.date,
+            item.text
+        );
+
     });
 
     taskResults.forEach(item=>{
 
+        const taskStatus =
+        item.task.completed
+        ? "完了"
+        : "未完了";
+
         html +=
-        `
-        <div class="list-card">
-            <div class="small-date">
-            ${item.date}
-            </div>
-            <div>
-            ✅ ${item.task.text}
-            </div>
-        </div>
-        `;
+        buildSearchCard(
+            "タスク / " + taskStatus,
+            "✅",
+            item.date,
+            item.task.text
+        );
+
     });
-    
+
     attachmentResults.forEach(file=>{
 
-    html +=
-    `
-    <div class="list-card">
+        html +=
+        buildSearchCard(
+            "添付",
+            "📎",
+            file.date,
+            file.title || file.name
+        );
 
-        <div class="small-date">
-        ${file.date}
-        </div>
+    });
 
-        <div>
-        📎 ${file.title || file.name}
-        </div>
-
-    </div>
-    `;
-
-});
-
-    if(!html){
+    if(total === 0){
 
         html =
         `
@@ -126,13 +194,13 @@ await searchAttachment(
         検索結果なし
         </div>
         `;
+
     }
 
     resultArea.innerHTML =
     html;
 
 }
-
 
 /* =====================
    添付検索
@@ -142,27 +210,76 @@ async function searchAttachment(
     keyword
 ){
 
+    const normalizedKeyword =
+    normalizeSearchText(
+        keyword
+    );
+
     const files =
     await getAllAttachments();
 
-    return files.filter(file=>
+    return files.filter(file=>{
 
-        (file.title || "")
-        .toLowerCase()
-        .includes(
-            keyword.toLowerCase()
-        )
+        const title =
+        normalizeSearchText(
+            file.title
+        );
 
-        ||
+        const name =
+        normalizeSearchText(
+            file.name
+        );
 
-        (file.name || "")
-        .toLowerCase()
-        .includes(
-            keyword.toLowerCase()
-        )
+        return (
+            title.includes(
+                normalizedKeyword
+            ) ||
+            name.includes(
+                normalizedKeyword
+            )
+        );
 
-    );
+    });
 
 }
 
+/* =====================
+   Enterキー検索
+===================== */
 
+window.addEventListener(
+
+    "load",
+
+    ()=>{
+
+        const input =
+        document.getElementById(
+            "searchInput"
+        );
+
+        if(!input){
+
+            return;
+
+        }
+
+        input.addEventListener(
+
+            "keydown",
+
+            event=>{
+
+                if(event.key === "Enter"){
+
+                    runSearch();
+
+                }
+
+            }
+
+        );
+
+    }
+
+);
