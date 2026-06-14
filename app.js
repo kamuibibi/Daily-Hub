@@ -161,11 +161,21 @@ function showPage(id){
     .add(
         "active"
     );
-    
+
+    console.log(
+        "scrollY =",
+        window.scrollY
+    );
+
     window.scrollTo(
-    0,
-    0
-);
+        0,
+        0
+    );
+
+    console.log(
+        "after =",
+        window.scrollY
+    );
 
 }
 
