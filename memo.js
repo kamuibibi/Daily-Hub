@@ -150,19 +150,7 @@ function renderMemoList(){
     const keys =
     getSortedKeys();
 
-    if(
-        keys.length === 0
-    ){
-
-        area.innerHTML =
-        `
-        <div class="list-card">
-        メモはありません
-        </div>
-        `;
-
-        return;
-    }
+    let memoCount = 0;
 
     keys.forEach(key=>{
 
@@ -176,6 +164,8 @@ function renderMemoList(){
 
             return;
         }
+
+        memoCount++;
 
         const card =
         document.createElement(
@@ -206,6 +196,19 @@ function renderMemoList(){
         );
 
     });
+
+    if(
+        memoCount === 0
+    ){
+
+        area.innerHTML =
+        `
+        <div class="list-card">
+        メモはありません
+        </div>
+        `;
+
+    }
 
 }
 
