@@ -75,6 +75,94 @@ function buildSearchCard(
 
 }
 
+function buildAttachmentSearchCard(file){
+
+    const blob =
+    file.file ||
+    file.blob;
+
+    const title =
+    file.title ||
+    file.name ||
+    "添付ファイル";
+
+    let preview = "";
+
+    if(blob){
+
+        const url =
+        URL.createObjectURL(
+            blob
+        );
+
+        if(
+            file.type &&
+            file.type.startsWith(
+                "image/"
+            )
+        ){
+
+            preview =
+            `
+            <img
+            src="${url}"
+            class="attachment-preview"
+            alt="${escapeHtml(title)}">
+            `;
+
+        }
+
+        else if(
+            file.type &&
+            file.type.startsWith(
+                "video/"
+            )
+        ){
+
+            preview =
+            `
+            <video
+            class="attachment-preview"
+            controls>
+
+                <source
+                src="${url}">
+
+            </video>
+            `;
+
+        }
+
+    }
+
+    return `
+    <div class="list-card search-card">
+
+        <div class="small-date">
+        ${escapeHtml(file.date || "日付なし")}
+        </div>
+
+        <div class="search-type">
+        📎 添付
+        </div>
+
+        <div class="search-text">
+        ${escapeHtml(title)}
+        </div>
+
+        ${preview}
+
+        <button
+        type="button"
+        onclick="downloadAttachment('${file.id}')">
+        ダウンロード
+        </button>
+
+    </div>
+    `;
+
+}
+
 /* =====================
    検索実行
 ===================== */
@@ -177,11 +265,8 @@ async function runSearch(){
     attachmentResults.forEach(file=>{
 
         html +=
-        buildSearchCard(
-            "添付",
-            "📎",
-            file.date,
-            file.title || file.name
+        buildAttachmentSearchCard(
+            file
         );
 
     });
