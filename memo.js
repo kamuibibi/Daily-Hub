@@ -135,6 +135,37 @@ function showMemoList(){
 }
 
 /* =====================
+   メモプレビュー
+===================== */
+
+function isMemoPreviewNeeded(text){
+
+    return (
+        text.length > 80 ||
+        text.split("\n").length > 3
+    );
+
+}
+
+function getMemoPreviewText(text){
+
+    const lines =
+    text.split("\n");
+
+    const preview =
+    lines.slice(0, 3).join("\n");
+
+    if(preview.length > 80){
+
+        return preview.slice(0, 80) + "...";
+
+    }
+
+    return preview + "...";
+
+}
+
+/* =====================
    メモ一覧描画
 ===================== */
 
@@ -171,11 +202,15 @@ function renderMemoList(){
         data.memo.trim();
 
         const isLongMemo =
-        memoText.length > 160;
+        isMemoPreviewNeeded(
+            memoText
+        );
 
         const previewText =
         isLongMemo
-        ? memoText.slice(0, 160) + "..."
+        ? getMemoPreviewText(
+            memoText
+        )
         : memoText;
 
         const card =
@@ -272,7 +307,9 @@ function toggleMemoPreview(button){
 
     const nextText =
     isExpanded
-    ? memoText.slice(0, 160) + "..."
+    ? getMemoPreviewText(
+        memoText
+    )
     : memoText;
 
     preview.innerHTML =
