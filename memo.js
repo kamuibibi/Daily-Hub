@@ -167,6 +167,14 @@ function renderMemoList(){
 
         memoCount++;
 
+        const memoText =
+        data.memo.trim();
+
+        const previewText =
+        memoText.length > 160
+        ? memoText.slice(0, 160) + "..."
+        : memoText;
+
         const card =
         document.createElement(
             "div"
@@ -183,7 +191,7 @@ function renderMemoList(){
 
         <div>
         ${escapeHtml(
-            data.memo
+            previewText
         ).replaceAll(
             "\n",
             "<br>"
