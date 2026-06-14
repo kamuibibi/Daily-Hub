@@ -170,8 +170,11 @@ function renderMemoList(){
         const memoText =
         data.memo.trim();
 
+        const isLongMemo =
+        memoText.length > 160;
+
         const previewText =
-        memoText.length > 160
+        isLongMemo
         ? memoText.slice(0, 160) + "..."
         : memoText;
 
@@ -189,7 +192,7 @@ function renderMemoList(){
         ${key}
         </div>
 
-        <div>
+        <div class="memo-preview">
         ${escapeHtml(
             previewText
         ).replaceAll(
@@ -197,6 +200,17 @@ function renderMemoList(){
             "<br>"
         )}
         </div>
+
+        ${isLongMemo ? `
+        <button
+        type="button"
+        class="memo-toggle-btn"
+        data-date="${key}"
+        data-expanded="false"
+        onclick="toggleMemoPreview(this)">
+        続きを読む
+        </button>
+        ` : ""}
         `;
 
         area.appendChild(
@@ -217,6 +231,63 @@ function renderMemoList(){
         `;
 
     }
+
+}
+
+/* =====================
+   メモ全文表示切替
+===================== */
+
+function toggleMemoPreview(button){
+
+    const dateKey =
+    button.dataset.date;
+
+    const data =
+    appData[dateKey];
+
+    if(
+        !data ||
+        !data.memo
+    ){
+
+        return;
+    }
+
+    const preview =
+    button.parentElement.querySelector(
+        ".memo-preview"
+    );
+
+    if(!preview){
+
+        return;
+    }
+
+    const memoText =
+    data.memo.trim();
+
+    const isExpanded =
+    button.dataset.expanded === "true";
+
+    const nextText =
+    isExpanded
+    ? memoText.slice(0, 160) + "..."
+    : memoText;
+
+    preview.innerHTML =
+    escapeHtml(
+        nextText
+    ).replaceAll(
+        "\n",
+        "<br>"
+    );
+
+    button.dataset.expanded =
+    isExpanded ? "false" : "true";
+
+    button.textContent =
+    isExpanded ? "続きを読む" : "閉じる";
 
 }
 
