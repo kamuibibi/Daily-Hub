@@ -132,29 +132,6 @@ function showMemoList(){
 
     renderMemoList();
 
-    window.scrollTo(
-        0,
-        0
-    );
-
-    requestAnimationFrame(()=>{
-
-        window.scrollTo(
-            0,
-            0
-        );
-
-        setTimeout(()=>{
-
-            window.scrollTo(
-                0,
-                0
-            );
-
-        }, 50);
-
-    });
-
 }
 
 /* =====================
