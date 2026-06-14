@@ -441,6 +441,36 @@ video.attachment-preview{
     margin-top:20px;
 }
 
+.search-summary{
+
+    color:#34c759;
+
+    font-weight:bold;
+}
+
+.search-card{
+
+    display:block;
+}
+
+.search-type{
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+    font-weight:bold;
+}
+
+.search-text{
+
+    line-height:1.6;
+
+    word-break:break-word;
+
+    overflow-wrap:anywhere;
+}
+
 /* =====================
 スマホ最適化
 ===================== */
