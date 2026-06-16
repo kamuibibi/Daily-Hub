@@ -36,6 +36,16 @@ function addTask(){
     const key =
     getDateKey();
 
+    const reminderInput =
+    document.getElementById(
+        "taskReminderTime"
+    );
+
+    const reminder =
+    reminderInput && reminderInput.value
+    ? reminderInput.value
+    : null;
+
     appData[key].tasks.push({
 
         id:
@@ -43,11 +53,19 @@ function addTask(){
 
         text:text,
 
-        completed:false
+        completed:false,
+
+        reminder:reminder
 
     });
 
     input.value = "";
+
+    if(reminderInput){
+
+        reminderInput.value = "";
+
+    }
 
     saveAll();
 
@@ -128,6 +146,10 @@ function renderTaskArea(){
             }">
 
                 ${escapeHtml(task.text)}
+
+                ${task.reminder
+                ? `<span class="reminder-badge">⏰ ${escapeHtml(task.reminder)}</span>`
+                : ""}
 
             </span>
 
@@ -313,6 +335,10 @@ function renderTaskList(){
             ${escapeHtml(
                 task.text
             )}
+
+            ${task.reminder
+            ? `<span class="reminder-badge">⏰ ${escapeHtml(task.reminder)}</span>`
+            : ""}
 
             </span>
 
