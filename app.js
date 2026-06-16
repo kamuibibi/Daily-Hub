@@ -382,6 +382,8 @@ window.addEventListener(
             "homePage"
         );
 
+        startReminderLoop();
+
     }
 
 );

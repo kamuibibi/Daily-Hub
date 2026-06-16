@@ -130,6 +130,11 @@ onclick="addTask()">
 
 </div>
 
+<input
+type="time"
+id="taskReminderTime"
+title="リマインダー時刻（任意）">
+
 <div
 id="taskArea">
 </div>
@@ -456,6 +461,21 @@ onclick="passcodeSetting()">
 
 </div>
 
+<!-- 通知 -->
+
+<div class="card">
+
+<h3>
+🔔 通知
+</h3>
+
+<button
+onclick="requestNotificationPermission()">
+通知を許可する
+</button>
+
+</div>
+
 <!-- テーマ -->
 
 <div class="card">
@@ -550,6 +570,7 @@ SCRIPT
 <script src="stats.js"></script>
 <script src="backup.js"></script>
 <script src="settings.js"></script>
+<script src="reminder.js"></script>
 <script src="app.js"></script>
 
 </body>

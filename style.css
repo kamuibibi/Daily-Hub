@@ -472,6 +472,24 @@ video.attachment-preview{
 }
 
 /* =====================
+リマインダー
+===================== */
+
+.reminder-badge{
+
+    display:inline-block;
+
+    font-size:12px;
+
+    color:#ff9500;
+
+    margin-left:6px;
+
+    white-space:nowrap;
+
+}
+
+/* =====================
 スマホ最適化
 ===================== */
 
