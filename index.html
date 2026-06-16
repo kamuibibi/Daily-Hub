@@ -130,10 +130,18 @@ onclick="addTask()">
 
 </div>
 
+<div class="reminder-row">
+<span class="reminder-label">⏰ リマインダー</span>
 <input
 type="time"
-id="taskReminderTime"
-title="リマインダー時刻（任意）">
+id="taskReminderTime">
+<button
+type="button"
+class="reminder-clear-btn"
+onclick="document.getElementById('taskReminderTime').value=''">
+✕
+</button>
+</div>
 
 <div
 id="taskArea">

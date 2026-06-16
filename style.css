@@ -475,6 +475,72 @@ video.attachment-preview{
 リマインダー
 ===================== */
 
+.reminder-row{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:4px;
+
+    margin-bottom:8px;
+
+}
+
+.reminder-label{
+
+    font-size:13px;
+
+    color:#aaa;
+
+    white-space:nowrap;
+
+    flex-shrink:0;
+
+}
+
+.reminder-row input[type="time"]{
+
+    flex:1;
+
+    margin:0;
+
+    padding:10px;
+
+    background:#2c2c2c;
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:10px;
+
+}
+
+.light-mode .reminder-row input[type="time"]{
+
+    background:#fff;
+
+    color:#111;
+
+    border:1px solid #ccc;
+
+}
+
+.reminder-clear-btn{
+
+    width:auto;
+
+    padding:10px 14px;
+
+    background:#555;
+
+    flex-shrink:0;
+
+}
+
 .reminder-badge{
 
     display:inline-block;
