@@ -33,11 +33,131 @@ function saveMemo(){
     appData[key].memo =
     memoText;
 
+    syncMemoTasks(key);
+
     saveAll();
+
+    renderTaskArea();
 
     refreshCalendar();
 
     updateStats();
+
+}
+
+/* =====================
+   タスク化メモ同期
+===================== */
+
+function syncMemoTasks(key){
+
+    if(!key || !appData[key]){
+
+        return;
+    }
+
+    const taskTags =
+    (
+        typeof settings !== "undefined" &&
+        settings.taskTags
+    )
+    ? settings.taskTags
+    : [];
+
+    const memo =
+    appData[key].memo || "";
+
+    const lines =
+    memo.split("\n");
+
+    const newTaskTexts = [];
+
+    if(taskTags.length){
+
+        lines.forEach(line=>{
+
+            const trimmed =
+            line.trim();
+
+            if(!trimmed){
+
+                return;
+            }
+
+            const matchedTag =
+            taskTags.find(
+                tag => trimmed.includes(tag)
+            );
+
+            if(!matchedTag){
+
+                return;
+            }
+
+            const taskText =
+            trimmed
+            .replace(matchedTag, "")
+            .trim();
+
+            if(taskText){
+
+                newTaskTexts.push(taskText);
+
+            }
+
+        });
+
+    }
+
+    const existingMemoTasks = {};
+
+    appData[key].tasks
+    .filter(t => t.fromMemo)
+    .forEach(t => {
+
+        existingMemoTasks[t.text] = t;
+
+    });
+
+    appData[key].tasks =
+    appData[key].tasks.filter(
+        t => !t.fromMemo
+    );
+
+    newTaskTexts.forEach(text=>{
+
+        if(existingMemoTasks[text]){
+
+            appData[key].tasks.push(
+                existingMemoTasks[text]
+            );
+
+        }
+        else{
+
+            appData[key].tasks.push({
+
+                id:
+                Date.now() +
+                appData[key].tasks.length,
+
+                text:text,
+
+                completed:false,
+
+                reminder:null,
+
+                repeat:null,
+
+                repeatId:null,
+
+                fromMemo:true
+
+            });
+
+        }
+
+    });
 
 }
 

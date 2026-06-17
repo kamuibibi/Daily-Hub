@@ -46,6 +46,18 @@ function loadSettings(){
         settings =
         JSON.parse(raw);
 
+        if(!settings.taskTags){
+
+            settings.taskTags = [];
+
+        }
+
+        if(!settings.tags){
+
+            settings.tags = [];
+
+        }
+
     }
 
     catch{
@@ -115,83 +127,21 @@ function addTag(){
 }
 
 /* =====================
-   タグ削除
-===================== */
-
-function deleteTag(){
-
-    const tag =
-    prompt(
-        "削除するタグ名"
-    );
-
-    if(!tag){
-
-        return;
-    }
-
-    settings.tags =
-    settings.tags.filter(
-
-        t =>
-        t !== tag
-
-    );
-
-    saveSettings();
-
-    if(
-        typeof renderMemoTags
-        ===
-        "function"
-    ){
-
-        renderMemoTags();
-
-    }
-
-    alert(
-        "削除しました"
-    );
-
-}
-
-/* =====================
    タグ編集
 ===================== */
 
-function editTag(){
+function editTag(index){
 
-    const oldTag =
-    prompt(
-        "変更前タグ"
-    );
-
-    if(!oldTag){
-
-        return;
-    }
+    const current =
+    settings.tags[index];
 
     const newTag =
     prompt(
-        "変更後タグ"
+        "変更後タグ",
+        current
     );
 
     if(!newTag){
-
-        return;
-    }
-
-    const index =
-    settings.tags.indexOf(
-        oldTag
-    );
-
-    if(index === -1){
-
-        alert(
-            "タグが見つかりません"
-        );
 
         return;
     }
@@ -201,19 +151,38 @@ function editTag(){
 
     saveSettings();
 
-    if(
-        typeof renderMemoTags
-        ===
-        "function"
-    ){
+    renderMemoTags();
 
-        renderMemoTags();
+    renderTagList();
 
+}
+
+/* =====================
+   タグ削除
+===================== */
+
+function deleteTag(index){
+
+    const ok =
+    confirm(
+        "削除しますか？"
+    );
+
+    if(!ok){
+
+        return;
     }
 
-    alert(
-        "変更しました"
+    settings.tags.splice(
+        index,
+        1
     );
+
+    saveSettings();
+
+    renderMemoTags();
+
+    renderTagList();
 
 }
 
@@ -306,14 +275,12 @@ function passcodeSetting(){
 }
 
 /* =====================
-   タスク化タグ設定
+   後方互換スタブ
 ===================== */
 
 function taskTagSetting(){
 
-    alert(
-        "次回実装予定"
-    );
+    showSettingsPage();
 
 }
 
@@ -345,159 +312,12 @@ function renderTagList(){
             );
 
             row.className =
-            "list-card";
-
-            row.innerHTML =
-            `
-            <div style="
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            ">
-
-                <span>
-                ${tag}
-                </span>
-
-                <div>
-
-                    <button
-                    onclick="editTagByIndex(${index})">
-                    編集
-                    </button>
-
-                    <button
-                    onclick="deleteTagByIndex(${index})">
-                    削除
-                    </button>
-
-                </div>
-
-            </div>
-            `;
-
-            area.appendChild(
-                row
-            );
-
-        }
-
-    );
-
-}
-
-/* =====================
-   タグ編集
-===================== */
-
-function editTag(index){
-
-    const current =
-    settings.tags[index];
-
-    const newTag =
-    prompt(
-        "変更後タグ",
-        current
-    );
-
-    if(!newTag){
-
-        return;
-    }
-
-    settings.tags[index] =
-    newTag;
-
-    saveSettings();
-
-    renderMemoTags();
-
-    renderTagList();
-
-}
-
-/* =====================
-   タグ削除
-===================== */
-
-function deleteTag(index){
-
-    const ok =
-    confirm(
-        "削除しますか？"
-    );
-
-    if(!ok){
-
-        return;
-    }
-
-    settings.tags.splice(
-        index,
-        1
-    );
-
-    saveSettings();
-
-    renderMemoTags();
-
-    renderTagList();
-
-}
-
-
-/* =====================
-   起動
-===================== */
-
-window.addEventListener(
-
-    "load",
-
-    ()=>{
-
-        loadSettings();
-
-        applyTheme();
-
-        renderTagList();
-
-    }
-
-);
-
-function renderTagList(){
-
-    const area =
-    document.getElementById(
-        "tagListArea"
-    );
-
-    if(!area){
-
-        return;
-    }
-
-    area.innerHTML = "";
-
-    settings.tags.forEach(
-
-        (tag,index)=>{
-
-            const row =
-            document.createElement(
-                "div"
-            );
-
-            row.className =
             "tag-row";
 
             row.innerHTML =
-
             `
             <span>
-            ${tag}
+            ${escapeHtml(tag)}
             </span>
 
             <div>
@@ -525,5 +345,157 @@ function renderTagList(){
 
 }
 
+/* =====================
+   タスク化タグ追加
+===================== */
 
+function addTaskTag(){
 
+    const input =
+    document.getElementById(
+        "newTaskTagInput"
+    );
+
+    const tag =
+    input.value.trim();
+
+    if(!tag){
+
+        alert(
+            "タグ名を入力してください"
+        );
+
+        return;
+
+    }
+
+    if(!settings.taskTags){
+
+        settings.taskTags = [];
+
+    }
+
+    settings.taskTags.push(
+        tag
+    );
+
+    saveSettings();
+
+    renderTaskTagList();
+
+    input.value = "";
+
+}
+
+/* =====================
+   タスク化タグ削除
+===================== */
+
+function deleteTaskTag(index){
+
+    const ok =
+    confirm(
+        "削除しますか？"
+    );
+
+    if(!ok){
+
+        return;
+    }
+
+    settings.taskTags.splice(
+        index,
+        1
+    );
+
+    saveSettings();
+
+    renderTaskTagList();
+
+}
+
+/* =====================
+   タスク化タグ一覧描画
+===================== */
+
+function renderTaskTagList(){
+
+    const area =
+    document.getElementById(
+        "taskTagListArea"
+    );
+
+    if(!area){
+
+        return;
+    }
+
+    area.innerHTML = "";
+
+    if(
+        !settings.taskTags ||
+        !settings.taskTags.length
+    ){
+
+        area.innerHTML =
+        `<div class="repeat-empty">タグなし</div>`;
+
+        return;
+
+    }
+
+    settings.taskTags.forEach(
+
+        (tag,index)=>{
+
+            const row =
+            document.createElement(
+                "div"
+            );
+
+            row.className =
+            "tag-row";
+
+            row.innerHTML =
+            `
+            <span>
+            ${escapeHtml(tag)}
+            </span>
+
+            <button
+            onclick="deleteTaskTag(${index})">
+            削除
+            </button>
+            `;
+
+            area.appendChild(
+                row
+            );
+
+        }
+
+    );
+
+}
+
+/* =====================
+   起動
+===================== */
+
+window.addEventListener(
+
+    "load",
+
+    ()=>{
+
+        loadSettings();
+
+        applyTheme();
+
+        renderTagList();
+
+        renderTaskTagList();
+
+    }
+
+);
