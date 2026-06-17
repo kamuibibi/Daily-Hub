@@ -447,6 +447,47 @@ async function clearAttachmentsDB(){
 }
 
 /* =====================
+   バックアップ用直接保存
+===================== */
+
+async function restoreAttachmentRecord(record){
+
+    if(!db){
+
+        await openDatabase();
+
+    }
+
+    return new Promise(
+        (resolve,reject)=>{
+
+        const tx =
+        db.transaction(
+            STORE_ATTACHMENTS,
+            "readwrite"
+        );
+
+        const store =
+        tx.objectStore(
+            STORE_ATTACHMENTS
+        );
+
+        const request =
+        store.put(record);
+
+        request.onsuccess =
+        ()=>resolve();
+
+        request.onerror =
+        ()=>reject(
+            request.error
+        );
+
+    });
+
+}
+
+/* =====================
    起動時
 ===================== */
 
