@@ -97,6 +97,7 @@ function syncMemoTasks(key){
             const taskText =
             trimmed
             .replace(matchedTag, "")
+            .replace(/【】/g, "")
             .trim();
 
             if(taskText){
