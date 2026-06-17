@@ -153,7 +153,7 @@ function dateToKey(date){
 }
 
 /* =====================
-   startDateから60日先まで生成
+   startDateから先まで生成
 ===================== */
 
 function generateRepeatTasks(){
@@ -167,20 +167,28 @@ function generateRepeatTasks(){
 
     }
 
-    const endDate =
-    new Date(
-        getTodayDateKey() + "T00:00:00"
-    );
-
-    endDate.setDate(
-        endDate.getDate() + 60
-    );
+    const todayStr =
+    getTodayDateKey();
 
     let changed = false;
 
     let idSeed = Date.now();
 
     templates.forEach(template=>{
+
+        const daysAhead =
+        template.repeat === "monthly"
+        ? 365
+        : template.repeat === "weekly"
+        ? 90
+        : 60;
+
+        const endDate =
+        new Date(todayStr + "T00:00:00");
+
+        endDate.setDate(
+            endDate.getDate() + daysAhead
+        );
 
         const current =
         new Date(
