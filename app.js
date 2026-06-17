@@ -384,6 +384,14 @@ window.addEventListener(
 
         startReminderLoop();
 
+        if("serviceWorker" in navigator){
+
+            navigator.serviceWorker.register(
+                "./service-worker.js"
+            ).catch(()=>{});
+
+        }
+
     }
 
 );
