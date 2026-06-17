@@ -153,6 +153,36 @@ function dateToKey(date){
 }
 
 /* =====================
+   月加算（閏年・月末対応）
+===================== */
+
+function addMonthSafe(date){
+
+    const originalDay =
+    date.getDate();
+
+    date.setDate(1);
+
+    date.setMonth(
+        date.getMonth() + 1
+    );
+
+    const maxDay =
+    new Date(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        0
+    ).getDate();
+
+    date.setDate(
+        Math.min(originalDay, maxDay)
+    );
+
+    return date;
+
+}
+
+/* =====================
    startDateから先まで生成
 ===================== */
 
@@ -259,9 +289,7 @@ function generateRepeatTasks(){
             }
             else if(template.repeat === "monthly"){
 
-                current.setMonth(
-                    current.getMonth() + 1
-                );
+                addMonthSafe(current);
 
             }
             else{
