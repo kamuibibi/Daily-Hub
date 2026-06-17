@@ -387,9 +387,39 @@ window.addEventListener(
 
         await updateStats();
 
-        showPage(
-            "homePage"
-        );
+        if(
+            settings.passcode &&
+            settings.passcode.trim()
+        ){
+
+            showPage("lockPage");
+
+            const input =
+            document.getElementById(
+                "passcodeInput"
+            );
+
+            if(input){
+
+                input.focus();
+
+                input.addEventListener(
+                    "keydown",
+                    e=>{
+                        if(e.key === "Enter"){
+                            unlockApp();
+                        }
+                    }
+                );
+
+            }
+
+        }
+        else{
+
+            showPage("homePage");
+
+        }
 
         startReminderLoop();
 
@@ -404,3 +434,58 @@ window.addEventListener(
     }
 
 );
+
+/* =====================
+   パスコード解除
+===================== */
+
+function unlockApp(){
+
+    const input =
+    document.getElementById(
+        "passcodeInput"
+    );
+
+    const error =
+    document.getElementById(
+        "lockError"
+    );
+
+    if(
+        input.value ===
+        settings.passcode
+    ){
+
+        input.value = "";
+
+        error.textContent = "";
+
+        showPage("homePage");
+
+    }
+    else{
+
+        error.textContent =
+        "パスコードが違います";
+
+        input.classList.add(
+            "lock-shake"
+        );
+
+        input.addEventListener(
+            "animationend",
+            ()=>{
+                input.classList.remove(
+                    "lock-shake"
+                );
+            },
+            { once:true }
+        );
+
+        input.value = "";
+
+        input.focus();
+
+    }
+
+}

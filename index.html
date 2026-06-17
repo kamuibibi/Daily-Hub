@@ -31,6 +31,40 @@ href="style.css">
 <body>
 
 <!-- =====================
+LOCK
+===================== -->
+
+<section
+id="lockPage"
+class="page">
+
+<div class="lock-container">
+
+<div class="lock-icon">🔒</div>
+
+<h2>Daily Hub Pro</h2>
+
+<input
+type="password"
+id="passcodeInput"
+placeholder="パスコードを入力"
+inputmode="numeric"
+autocomplete="current-password">
+
+<button
+onclick="unlockApp()">
+解除
+</button>
+
+<p id="lockError"
+class="lock-error">
+</p>
+
+</div>
+
+</section>
+
+<!-- =====================
 HOME
 ===================== -->
 
