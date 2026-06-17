@@ -130,60 +130,33 @@ function getRepeatLabel(repeat){
 }
 
 /* =====================
-   今日生成すべきか判定
+   日付キー変換
 ===================== */
 
-function shouldGenerateToday(
-    template,
-    todayKey
-){
+function dateToKey(date){
 
-    const today =
-    new Date(todayKey + "T00:00:00");
+    const y =
+    date.getFullYear();
 
-    const start =
-    new Date(
-        template.startDate + "T00:00:00"
-    );
+    const m =
+    String(
+        date.getMonth() + 1
+    ).padStart(2, "0");
 
-    if(today < start){
+    const d =
+    String(
+        date.getDate()
+    ).padStart(2, "0");
 
-        return false;
-
-    }
-
-    switch(template.repeat){
-
-        case "daily":
-            return true;
-
-        case "weekly":
-            return (
-                today.getDay() ===
-                start.getDay()
-            );
-
-        case "monthly":
-            return (
-                today.getDate() ===
-                start.getDate()
-            );
-
-        default:
-            return false;
-
-    }
+    return `${y}-${m}-${d}`;
 
 }
 
 /* =====================
-   今日分を生成
+   startDateから60日先まで生成
 ===================== */
 
 function generateRepeatTasks(){
-
-    const todayKey =
-    getTodayDateKey();
 
     const templates =
     loadRepeatTasks();
@@ -194,65 +167,100 @@ function generateRepeatTasks(){
 
     }
 
-    if(!appData[todayKey]){
+    const endDate =
+    new Date(
+        getTodayDateKey() + "T00:00:00"
+    );
 
-        appData[todayKey] = {
-            memo:"",
-            tasks:[]
-        };
-
-    }
+    endDate.setDate(
+        endDate.getDate() + 60
+    );
 
     let changed = false;
 
+    let idSeed = Date.now();
+
     templates.forEach(template=>{
 
-        const todayTasks =
-        appData[todayKey].tasks || [];
-
-        const alreadyExists =
-        todayTasks.some(
-            t => t.repeatId === template.id
+        const current =
+        new Date(
+            template.startDate + "T00:00:00"
         );
 
-        if(alreadyExists){
+        while(current <= endDate){
 
-            return;
+            const dateKey =
+            dateToKey(current);
 
-        }
+            if(!appData[dateKey]){
 
-        if(
-            shouldGenerateToday(
-                template,
-                todayKey
-            )
-        ){
+                appData[dateKey] = {
+                    memo:"",
+                    tasks:[]
+                };
 
-            appData[todayKey].tasks.push({
+            }
 
-                id:
-                Date.now() +
-                Math.floor(
-                    Math.random() * 10000
-                ),
+            const alreadyExists =
+            (appData[dateKey].tasks || [])
+            .some(
+                t => t.repeatId === template.id
+            );
 
-                text:
-                template.text,
+            if(!alreadyExists){
 
-                completed:false,
+                idSeed++;
 
-                reminder:
-                template.reminder || null,
+                appData[dateKey].tasks.push({
 
-                repeat:
-                template.repeat,
+                    id: idSeed,
 
-                repeatId:
-                template.id
+                    text:
+                    template.text,
 
-            });
+                    completed: false,
 
-            changed = true;
+                    reminder:
+                    template.reminder || null,
+
+                    repeat:
+                    template.repeat,
+
+                    repeatId:
+                    template.id
+
+                });
+
+                changed = true;
+
+            }
+
+            if(template.repeat === "daily"){
+
+                current.setDate(
+                    current.getDate() + 1
+                );
+
+            }
+            else if(template.repeat === "weekly"){
+
+                current.setDate(
+                    current.getDate() + 7
+                );
+
+            }
+            else if(template.repeat === "monthly"){
+
+                current.setMonth(
+                    current.getMonth() + 1
+                );
+
+            }
+            else{
+
+                break;
+
+            }
 
         }
 
