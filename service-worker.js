@@ -4,7 +4,7 @@
 ===================== */
 
 const CACHE_NAME =
-"dailyhub-v1";
+"dailyhub-v2";
 
 const ASSETS = [
     "./",
