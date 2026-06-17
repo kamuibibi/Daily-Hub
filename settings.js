@@ -110,8 +110,6 @@ function addTag(){
 
     renderMemoTags();
 
-    renderTagSearchArea();
-
     input.value = "";
 
 }
@@ -445,8 +443,6 @@ function deleteTag(index){
     renderMemoTags();
 
     renderTagList();
-
-    renderTagSearchArea();
 
 }
 
