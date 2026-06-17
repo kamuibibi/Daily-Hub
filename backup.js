@@ -1,5 +1,5 @@
 /* =====================
-   Daily Hub Pro v3.0
+   Daily Hub Pro v3.1
    Backup
 ===================== */
 
@@ -11,6 +11,64 @@ function showBackupPage(){
 
     showPage(
         "backupPage"
+    );
+
+}
+
+/* =====================
+   Blob → base64変換
+===================== */
+
+function blobToBase64(blob){
+
+    return new Promise(resolve=>{
+
+        const reader =
+        new FileReader();
+
+        reader.onload =
+        ()=>resolve(
+            reader.result
+        );
+
+        reader.readAsDataURL(blob);
+
+    });
+
+}
+
+/* =====================
+   base64 → Blob変換
+===================== */
+
+function base64ToBlob(dataUrl, type){
+
+    const parts =
+    dataUrl.split(",");
+
+    const byteStr =
+    atob(parts[1]);
+
+    const ab =
+    new ArrayBuffer(byteStr.length);
+
+    const ia =
+    new Uint8Array(ab);
+
+    for(
+        let i = 0;
+        i < byteStr.length;
+        i++
+    ){
+
+        ia[i] =
+        byteStr.charCodeAt(i);
+
+    }
+
+    return new Blob(
+        [ab],
+        { type:type }
     );
 
 }
@@ -31,14 +89,42 @@ async function exportData(){
             await getAllAttachments();
 
         }
-
         catch(error){
 
-            console.error(
-                error
-            );
+            console.error(error);
 
         }
+
+        const attachmentsExport =
+        await Promise.all(
+
+            attachments.map(async att=>{
+
+                const copy =
+                Object.assign({}, att);
+
+                const blob =
+                att.file ||
+                att.blob;
+
+                if(
+                    blob &&
+                    blob instanceof Blob
+                ){
+
+                    copy.fileData =
+                    await blobToBase64(blob);
+
+                }
+
+                delete copy.file;
+                delete copy.blob;
+
+                return copy;
+
+            })
+
+        );
 
         const backupData = {
 
@@ -46,11 +132,10 @@ async function exportData(){
             appData,
 
             attachments:
-            attachments,
+            attachmentsExport,
 
             exportDate:
-            new Date()
-            .toISOString()
+            new Date().toISOString()
 
         };
 
@@ -73,41 +158,27 @@ async function exportData(){
         );
 
         const url =
-        URL.createObjectURL(
-            blob
-        );
+        URL.createObjectURL(blob);
 
         const a =
-        document.createElement(
-            "a"
-        );
+        document.createElement("a");
 
         a.href = url;
 
         a.download =
-        `dailyhub_backup_${
-            Date.now()
-        }.json`;
+        `dailyhub_backup_${Date.now()}.json`;
 
-        document.body
-        .appendChild(a);
+        document.body.appendChild(a);
 
         a.click();
 
         a.remove();
 
         setTimeout(
-
             ()=>{
-
-                URL.revokeObjectURL(
-                    url
-                );
-
+                URL.revokeObjectURL(url);
             },
-
             1000
-
         );
 
         alert(
@@ -115,12 +186,9 @@ async function exportData(){
         );
 
     }
-
     catch(error){
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         alert(
             "バックアップ失敗"
@@ -142,10 +210,8 @@ async function importData(){
     );
 
     if(
-
         !input.files ||
         !input.files.length
-
     ){
 
         alert(
@@ -153,6 +219,7 @@ async function importData(){
         );
 
         return;
+
     }
 
     const file =
@@ -171,15 +238,14 @@ async function importData(){
                 event.target.result
             );
 
-            if(
-                !backupData.appData
-            ){
+            if(!backupData.appData){
 
                 alert(
                     "不正なファイルです"
                 );
 
                 return;
+
             }
 
             const ok =
@@ -190,12 +256,47 @@ async function importData(){
             if(!ok){
 
                 return;
+
             }
 
             appData =
             backupData.appData;
 
             saveAll();
+
+            await clearAttachmentsDB();
+
+            const attachments =
+            backupData.attachments || [];
+
+            for(
+                const att of attachments
+            ){
+
+                const record =
+                Object.assign({}, att);
+
+                if(att.fileData){
+
+                    record.file =
+                    base64ToBlob(
+                        att.fileData,
+                        att.type
+                    );
+
+                    delete record.fileData;
+
+                }
+
+                if(record.file){
+
+                    await restoreAttachmentRecord(
+                        record
+                    );
+
+                }
+
+            }
 
             alert(
                 "復元完了"
@@ -204,12 +305,9 @@ async function importData(){
             location.reload();
 
         }
-
         catch(error){
 
-            console.error(
-                error
-            );
+            console.error(error);
 
             alert(
                 "読込失敗"
@@ -219,8 +317,6 @@ async function importData(){
 
     };
 
-    reader.readAsText(
-        file
-    );
+    reader.readAsText(file);
 
 }

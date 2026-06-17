@@ -46,16 +46,46 @@ function addTask(){
     ? reminderInput.value
     : null;
 
+    const repeatInput =
+    document.getElementById(
+        "taskRepeat"
+    );
+
+    const repeat =
+    repeatInput && repeatInput.value
+    ? repeatInput.value
+    : null;
+
+    const taskId =
+    Date.now();
+
+    if(repeat){
+
+        addRepeatTask(
+            taskId,
+            text,
+            repeat,
+            reminder,
+            key
+        );
+
+    }
+
     appData[key].tasks.push({
 
         id:
-        Date.now(),
+        repeat ? taskId + 1 : taskId,
 
         text:text,
 
         completed:false,
 
-        reminder:reminder
+        reminder:reminder,
+
+        repeat:repeat || null,
+
+        repeatId:
+        repeat ? taskId : null
 
     });
 
@@ -64,6 +94,12 @@ function addTask(){
     if(reminderInput){
 
         reminderInput.value = "";
+
+    }
+
+    if(repeatInput){
+
+        repeatInput.value = "";
 
     }
 
@@ -146,6 +182,10 @@ function renderTaskArea(){
             }">
 
                 ${escapeHtml(task.text)}
+
+                ${task.repeat
+                ? `<span class="repeat-badge">🔁 ${escapeHtml(getRepeatLabel(task.repeat))}</span>`
+                : ""}
 
                 ${task.reminder
                 ? `<span class="reminder-badge">⏰ ${escapeHtml(task.reminder)}</span>`
@@ -335,6 +375,10 @@ function renderTaskList(){
             ${escapeHtml(
                 task.text
             )}
+
+            ${task.repeat
+            ? `<span class="repeat-badge">🔁 ${escapeHtml(getRepeatLabel(task.repeat))}</span>`
+            : ""}
 
             ${task.reminder
             ? `<span class="reminder-badge">⏰ ${escapeHtml(task.reminder)}</span>`

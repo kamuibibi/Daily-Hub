@@ -224,6 +224,9 @@ function showSettingsPage(){
     showPage(
         "settingsPage"
     );
+
+    renderRepeatList();
+
 }
 
 /* =====================
@@ -376,6 +379,8 @@ window.addEventListener(
 
         loadAll();
 
+        generateRepeatTasks();
+
         await updateStats();
 
         showPage(
@@ -383,6 +388,14 @@ window.addEventListener(
         );
 
         startReminderLoop();
+
+        if("serviceWorker" in navigator){
+
+            navigator.serviceWorker.register(
+                "./service-worker.js"
+            ).catch(()=>{});
+
+        }
 
     }
 

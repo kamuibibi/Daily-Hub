@@ -10,6 +10,18 @@ content="width=device-width,initial-scale=1.0">
 
 <title>Daily Hub Pro v3.1</title>
 
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#007aff">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="apple-mobile-web-app-title" content="Daily Hub">
+
+<link rel="apple-touch-icon" href="icon.svg">
+
 <link
 rel="stylesheet"
 href="style.css">
@@ -141,6 +153,16 @@ class="reminder-clear-btn"
 onclick="document.getElementById('taskReminderTime').value=''">
 ✕
 </button>
+</div>
+
+<div class="reminder-row">
+<span class="reminder-label">🔁 繰り返し</span>
+<select id="taskRepeat">
+<option value="">なし</option>
+<option value="daily">毎日</option>
+<option value="weekly">毎週</option>
+<option value="monthly">毎月</option>
+</select>
 </div>
 
 <div
@@ -369,10 +391,32 @@ onclick="goHome()">
 
 </div>
 
+<div class="card">
+
+<h3>
+📤 エクスポート
+</h3>
+
+<p class="backup-note">
+現在のデータをJSONファイルとして保存します。
+</p>
+
 <button
 onclick="exportData()">
 JSON出力
 </button>
+
+</div>
+
+<div class="card">
+
+<h3>
+📥 インポート
+</h3>
+
+<p class="backup-note">
+ブラウザやデバイスを変える際は、エクスポートしたJSONファイルをここから読み込んでください。
+</p>
 
 <input
 type="file"
@@ -382,6 +426,17 @@ id="importFile">
 onclick="importData()">
 JSON読込
 </button>
+
+</div>
+
+<div class="card backup-info">
+
+<p>
+⚠️ ブラウザが異なるとデータは共有されません。<br>
+Chrome → Safari など環境を変える場合は、必ずエクスポート → インポートでデータを移行してください。
+</p>
+
+</div>
 
 </section>
 
@@ -404,6 +459,19 @@ onclick="goHome()">
 <h2>
 ⚙️ 設定
 </h2>
+
+</div>
+
+<!-- 繰り返しタスク管理 -->
+
+<div class="card">
+
+<h3>
+🔁 繰り返しタスク
+</h3>
+
+<div id="repeatListArea">
+</div>
 
 </div>
 
@@ -579,6 +647,7 @@ SCRIPT
 <script src="backup.js"></script>
 <script src="settings.js"></script>
 <script src="reminder.js"></script>
+<script src="repeat.js"></script>
 <script src="app.js"></script>
 
 </body>
