@@ -4,7 +4,7 @@
 ===================== */
 
 const CACHE_NAME =
-"dailyhub-v3";
+"dailyhub-v4";
 
 const ASSETS = [
     "./",
@@ -85,64 +85,37 @@ self.addEventListener(
     "fetch",
     event=>{
 
-        const url =
-        new URL(event.request.url);
+        event.respondWith(
 
-        const isAsset =
-        url.pathname.endsWith(".js") ||
-        url.pathname.endsWith(".css");
+            fetch(event.request)
+            .then(response=>{
 
-        if(isAsset){
+                const clone =
+                response.clone();
 
-            event.respondWith(
+                caches.open(
+                    CACHE_NAME
+                ).then(cache=>{
 
-                fetch(event.request)
-                .then(response=>{
-
-                    const clone =
-                    response.clone();
-
-                    caches.open(
-                        CACHE_NAME
-                    ).then(cache=>{
-
-                        cache.put(
-                            event.request,
-                            clone
-                        );
-
-                    });
-
-                    return response;
-
-                })
-                .catch(()=>{
-
-                    return caches.match(
-                        event.request
+                    cache.put(
+                        event.request,
+                        clone
                     );
 
-                })
+                });
 
-            );
+                return response;
 
-        }
-        else{
+            })
+            .catch(()=>{
 
-            event.respondWith(
-
-                caches.match(
+                return caches.match(
                     event.request
-                ).then(cached=>{
+                );
 
-                    return cached ||
-                    fetch(event.request);
+            })
 
-                })
-
-            );
-
-        }
+        );
 
     }
 );
