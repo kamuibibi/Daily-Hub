@@ -105,6 +105,12 @@ function addTask(){
 
     saveAll();
 
+    if(repeat){
+
+        generateRepeatTasks();
+
+    }
+
     renderTaskArea();
 
     refreshCalendar();
