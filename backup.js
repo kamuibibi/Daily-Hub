@@ -21,14 +21,18 @@ function showBackupPage(){
 
 function blobToBase64(blob){
 
-    return new Promise(resolve=>{
+    return new Promise(
+        (resolve, reject)=>{
 
         const reader =
         new FileReader();
 
         reader.onload =
-        ()=>resolve(
-            reader.result
+        ()=>resolve(reader.result);
+
+        reader.onerror =
+        ()=>reject(
+            new Error("FileReader error")
         );
 
         reader.readAsDataURL(blob);
@@ -100,8 +104,25 @@ async function exportData(){
 
             attachments.map(async att=>{
 
-                const copy =
-                Object.assign({}, att);
+                const copy = {};
+
+                [
+                    "id",
+                    "date",
+                    "title",
+                    "name",
+                    "type",
+                    "size",
+                    "createdAt"
+                ].forEach(k=>{
+
+                    if(att[k] !== undefined){
+
+                        copy[k] = att[k];
+
+                    }
+
+                });
 
                 const blob =
                 att.file ||
@@ -112,13 +133,23 @@ async function exportData(){
                     blob instanceof Blob
                 ){
 
-                    copy.fileData =
-                    await blobToBase64(blob);
+                    try{
+
+                        copy.fileData =
+                        await blobToBase64(blob);
+
+                    }
+                    catch(e){
+
+                        console.warn(
+                            "変換失敗:",
+                            att.name,
+                            e
+                        );
+
+                    }
 
                 }
-
-                delete copy.file;
-                delete copy.blob;
 
                 return copy;
 
@@ -273,25 +304,41 @@ async function importData(){
                 const att of attachments
             ){
 
-                const record =
-                Object.assign({}, att);
+                try{
 
-                if(att.fileData){
+                    const record =
+                    Object.assign({}, att);
 
-                    record.file =
-                    base64ToBlob(
-                        att.fileData,
-                        att.type
-                    );
+                    if(
+                        att.fileData &&
+                        typeof att.fileData === "string"
+                    ){
 
-                    delete record.fileData;
+                        record.file =
+                        base64ToBlob(
+                            att.fileData,
+                            att.type
+                        );
+
+                        delete record.fileData;
+
+                    }
+
+                    if(record.file){
+
+                        await restoreAttachmentRecord(
+                            record
+                        );
+
+                    }
 
                 }
+                catch(e){
 
-                if(record.file){
-
-                    await restoreAttachmentRecord(
-                        record
+                    console.warn(
+                        "復元失敗:",
+                        att.name,
+                        e
                     );
 
                 }
