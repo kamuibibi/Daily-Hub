@@ -472,6 +472,40 @@ video.attachment-preview{
 }
 
 /* =====================
+バックアップ
+===================== */
+
+.backup-note{
+
+    font-size:13px;
+
+    color:#aaa;
+
+    margin-bottom:10px;
+
+    line-height:1.6;
+
+}
+
+.backup-info{
+
+    border:1px solid #ff9500;
+
+    background:#1e1e1e;
+
+}
+
+.backup-info p{
+
+    font-size:13px;
+
+    color:#ff9500;
+
+    line-height:1.8;
+
+}
+
+/* =====================
 リマインダー
 ===================== */
 

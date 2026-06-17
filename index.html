@@ -381,10 +381,32 @@ onclick="goHome()">
 
 </div>
 
+<div class="card">
+
+<h3>
+📤 エクスポート
+</h3>
+
+<p class="backup-note">
+現在のデータをJSONファイルとして保存します。
+</p>
+
 <button
 onclick="exportData()">
 JSON出力
 </button>
+
+</div>
+
+<div class="card">
+
+<h3>
+📥 インポート
+</h3>
+
+<p class="backup-note">
+ブラウザやデバイスを変える際は、エクスポートしたJSONファイルをここから読み込んでください。
+</p>
 
 <input
 type="file"
@@ -394,6 +416,17 @@ id="importFile">
 onclick="importData()">
 JSON読込
 </button>
+
+</div>
+
+<div class="card backup-info">
+
+<p>
+⚠️ ブラウザが異なるとデータは共有されません。<br>
+Chrome → Safari など環境を変える場合は、必ずエクスポート → インポートでデータを移行してください。
+</p>
+
+</div>
 
 </section>
 
