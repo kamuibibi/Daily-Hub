@@ -85,17 +85,64 @@ self.addEventListener(
     "fetch",
     event=>{
 
-        event.respondWith(
+        const url =
+        new URL(event.request.url);
 
-            caches.match(
-                event.request
-            ).then(cached=>{
+        const isAsset =
+        url.pathname.endsWith(".js") ||
+        url.pathname.endsWith(".css");
 
-                return cached || fetch(event.request);
+        if(isAsset){
 
-            })
+            event.respondWith(
 
-        );
+                fetch(event.request)
+                .then(response=>{
+
+                    const clone =
+                    response.clone();
+
+                    caches.open(
+                        CACHE_NAME
+                    ).then(cache=>{
+
+                        cache.put(
+                            event.request,
+                            clone
+                        );
+
+                    });
+
+                    return response;
+
+                })
+                .catch(()=>{
+
+                    return caches.match(
+                        event.request
+                    );
+
+                })
+
+            );
+
+        }
+        else{
+
+            event.respondWith(
+
+                caches.match(
+                    event.request
+                ).then(cached=>{
+
+                    return cached ||
+                    fetch(event.request);
+
+                })
+
+            );
+
+        }
 
     }
 );
