@@ -197,18 +197,22 @@ function renderTaskArea(){
                 ? `<span class="reminder-badge">⏰ ${escapeHtml(task.reminder)}</span>`
                 : ""}
 
+                ${task.fromMemo
+                ? `<span class="memo-badge">📝 メモ</span>`
+                : ""}
+
             </span>
 
         </label>
 
-        <button
+        ${!task.fromMemo
+        ? `<button
         type="button"
         class="delete-btn"
         onclick="deleteTask(${task.id})">
-
             削除
-
-        </button>
+        </button>`
+        : ""}
         `;
 
         area.appendChild(

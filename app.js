@@ -227,6 +227,10 @@ function showSettingsPage(){
 
     renderRepeatList();
 
+    renderTagList();
+
+    renderTaskTagList();
+
 }
 
 /* =====================

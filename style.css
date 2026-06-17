@@ -903,3 +903,51 @@ body.light-mode{
     border:2px solid #007aff;
 
 }
+
+/* =====================
+   タスク化メモバッジ
+===================== */
+
+.memo-badge{
+
+    display:inline-block;
+
+    font-size:12px;
+
+    color:#007aff;
+
+    margin-left:6px;
+
+    white-space:nowrap;
+
+}
+
+/* =====================
+   タグ行
+===================== */
+
+.tag-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#2c2c2c;
+
+    padding:10px 12px;
+
+    border-radius:10px;
+
+    margin-bottom:8px;
+
+}
+
+.light-mode .tag-row{
+
+    background:#f0f0f0;
+
+    color:#111;
+
+}

@@ -515,10 +515,27 @@ id="tagListArea">
 📝 タスク化メモ
 </h3>
 
+<p class="backup-note">
+このタグを含むメモ行は自動的にタスクに変換されます。
+</p>
+
+<div class="task-input">
+
+<input
+type="text"
+id="newTaskTagInput"
+placeholder="タスク化タグ（例:【タスク】）">
+
 <button
-onclick="taskTagSetting()">
-設定
+onclick="addTaskTag()">
+追加
 </button>
+
+</div>
+
+<div
+id="taskTagListArea">
+</div>
 
 </div>
 
