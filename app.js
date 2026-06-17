@@ -224,6 +224,9 @@ function showSettingsPage(){
     showPage(
         "settingsPage"
     );
+
+    renderRepeatList();
+
 }
 
 /* =====================
@@ -375,6 +378,8 @@ window.addEventListener(
     async ()=>{
 
         loadAll();
+
+        generateRepeatTasks();
 
         await updateStats();
 

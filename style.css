@@ -575,6 +575,20 @@ video.attachment-preview{
 
 }
 
+.repeat-badge{
+
+    display:inline-block;
+
+    font-size:12px;
+
+    color:#34c759;
+
+    margin-left:6px;
+
+    white-space:nowrap;
+
+}
+
 .reminder-badge{
 
     display:inline-block;
@@ -586,6 +600,54 @@ video.attachment-preview{
     margin-left:6px;
 
     white-space:nowrap;
+
+}
+
+.repeat-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#2c2c2c;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    margin-bottom:8px;
+
+    gap:10px;
+
+}
+
+.repeat-item-info{
+
+    flex:1;
+
+    min-width:0;
+
+}
+
+.repeat-item-text{
+
+    display:block;
+
+    margin-top:4px;
+
+    word-break:break-word;
+
+}
+
+.repeat-empty{
+
+    color:#888;
+
+    font-size:14px;
+
+    padding:8px 0;
 
 }
 
