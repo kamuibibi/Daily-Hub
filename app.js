@@ -387,6 +387,8 @@ window.addEventListener(
             "homePage"
         );
 
+        renderTagSearchArea();
+
         startReminderLoop();
 
         if("serviceWorker" in navigator){

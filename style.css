@@ -472,6 +472,74 @@ video.attachment-preview{
 }
 
 /* =====================
+タグ検索
+===================== */
+
+.tag-search-label{
+
+    font-size:13px;
+
+    color:#aaa;
+
+    margin-top:15px;
+
+    margin-bottom:8px;
+
+}
+
+.tag-search-wrap{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-bottom:10px;
+
+}
+
+.tag-search-btn{
+
+    background:#2c2c2c;
+
+    color:#fff;
+
+    padding:8px 14px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+    width:auto;
+
+}
+
+.tag-search-btn-active{
+
+    background:#007aff;
+
+    color:#fff;
+
+}
+
+.light-mode .tag-search-btn{
+
+    background:#e5e5e5;
+
+    color:#111;
+
+}
+
+.light-mode .tag-search-btn-active{
+
+    background:#007aff;
+
+    color:#fff;
+
+}
+
+/* =====================
 バックアップ
 ===================== */
 
