@@ -153,7 +153,37 @@ function dateToKey(date){
 }
 
 /* =====================
-   startDateから60日先まで生成
+   月加算（閏年・月末対応）
+===================== */
+
+function addMonthSafe(date){
+
+    const originalDay =
+    date.getDate();
+
+    date.setDate(1);
+
+    date.setMonth(
+        date.getMonth() + 1
+    );
+
+    const maxDay =
+    new Date(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        0
+    ).getDate();
+
+    date.setDate(
+        Math.min(originalDay, maxDay)
+    );
+
+    return date;
+
+}
+
+/* =====================
+   startDateから先まで生成
 ===================== */
 
 function generateRepeatTasks(){
@@ -167,20 +197,28 @@ function generateRepeatTasks(){
 
     }
 
-    const endDate =
-    new Date(
-        getTodayDateKey() + "T00:00:00"
-    );
-
-    endDate.setDate(
-        endDate.getDate() + 60
-    );
+    const todayStr =
+    getTodayDateKey();
 
     let changed = false;
 
     let idSeed = Date.now();
 
     templates.forEach(template=>{
+
+        const daysAhead =
+        template.repeat === "monthly"
+        ? 365
+        : template.repeat === "weekly"
+        ? 90
+        : 60;
+
+        const endDate =
+        new Date(todayStr + "T00:00:00");
+
+        endDate.setDate(
+            endDate.getDate() + daysAhead
+        );
 
         const current =
         new Date(
@@ -251,9 +289,7 @@ function generateRepeatTasks(){
             }
             else if(template.repeat === "monthly"){
 
-                current.setMonth(
-                    current.getMonth() + 1
-                );
+                addMonthSafe(current);
 
             }
             else{
