@@ -46,6 +46,18 @@ function loadSettings(){
         settings =
         JSON.parse(raw);
 
+        if(!settings.taskTags){
+
+            settings.taskTags = [];
+
+        }
+
+        if(!settings.tags){
+
+            settings.tags = [];
+
+        }
+
     }
 
     catch{
@@ -259,6 +271,16 @@ function passcodeSetting(){
     alert(
         "保存しました"
     );
+
+}
+
+/* =====================
+   後方互換スタブ
+===================== */
+
+function taskTagSetting(){
+
+    showSettingsPage();
 
 }
 
