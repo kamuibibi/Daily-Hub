@@ -865,6 +865,30 @@ body.light-mode{
 
 }
 
+.light-mode .repeat-item{
+
+    background:#f0f0f0;
+
+    color:#111111;
+
+}
+
+.light-mode .tag-search-btn{
+
+    background:#e5e5e5;
+
+    color:#111111;
+
+}
+
+.light-mode .action-btn-group button{
+
+    background:#e5e5e5;
+
+    color:#111111;
+
+}
+
 /* =====================
    Light Mode Today
 ===================== */

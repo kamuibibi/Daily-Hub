@@ -327,15 +327,31 @@ function renderTaskCompleteActionSetting(){
     settings.taskCompleteAction ||
     "strikethrough";
 
+    const isLight =
+    settings.theme === "light";
+
+    const inactiveColor =
+    isLight ? "#cccccc" : "#555";
+
     strikeBtn.style.background =
     action === "strikethrough"
     ? "#007aff"
-    : "#555";
+    : inactiveColor;
 
     deleteBtn.style.background =
     action === "auto-delete"
     ? "#007aff"
-    : "#555";
+    : inactiveColor;
+
+    strikeBtn.style.color =
+    action === "strikethrough"
+    ? "#fff"
+    : (isLight ? "#111" : "#fff");
+
+    deleteBtn.style.color =
+    action === "auto-delete"
+    ? "#fff"
+    : (isLight ? "#111" : "#fff");
 
 }
 
