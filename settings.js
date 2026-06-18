@@ -21,7 +21,9 @@ let settings = {
 
     theme:"dark",
 
-    passcode:""
+    passcode:"",
+
+    taskCompleteAction:"strikethrough"
 
 };
 
@@ -55,6 +57,13 @@ function loadSettings(){
         if(!settings.tags){
 
             settings.tags = [];
+
+        }
+
+        if(!settings.taskCompleteAction){
+
+            settings.taskCompleteAction =
+            "strikethrough";
 
         }
 
@@ -279,6 +288,54 @@ function passcodeSetting(){
         ? "パスコードを設定しました"
         : "パスコードを解除しました"
     );
+
+}
+
+/* =====================
+   タスク完了動作
+===================== */
+
+function setTaskCompleteAction(action){
+
+    settings.taskCompleteAction =
+    action;
+
+    saveSettings();
+
+    renderTaskCompleteActionSetting();
+
+}
+
+function renderTaskCompleteActionSetting(){
+
+    const strikeBtn =
+    document.getElementById(
+        "actionStrikeBtn"
+    );
+
+    const deleteBtn =
+    document.getElementById(
+        "actionDeleteBtn"
+    );
+
+    if(!strikeBtn || !deleteBtn){
+
+        return;
+    }
+
+    const action =
+    settings.taskCompleteAction ||
+    "strikethrough";
+
+    strikeBtn.style.background =
+    action === "strikethrough"
+    ? "#007aff"
+    : "#555";
+
+    deleteBtn.style.background =
+    action === "auto-delete"
+    ? "#007aff"
+    : "#555";
 
 }
 
