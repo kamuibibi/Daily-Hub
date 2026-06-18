@@ -425,17 +425,5 @@ function refreshCalendar(){
 }
 
 /* =====================
-   初回起動
+   初回起動はapp.jsに委譲
 ===================== */
-
-window.addEventListener(
-
-    "load",
-
-    ()=>{
-
-        renderCalendar();
-
-    }
-
-);

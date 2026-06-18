@@ -162,6 +162,12 @@ function showPage(id){
         "active"
     );
 
+    if(id === "homePage"){
+
+        renderCalendar();
+
+    }
+
     window.scrollTo(
         0,
         0
@@ -384,6 +390,8 @@ window.addEventListener(
         loadAll();
 
         generateRepeatTasks();
+
+        renderCalendar();
 
         await updateStats();
 
