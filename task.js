@@ -264,6 +264,53 @@ function toggleTask(id){
 
     refreshCalendar();
 
+    if(
+        task.completed &&
+        settings.taskCompleteAction
+        === "auto-delete"
+    ){
+
+        const capturedKey = key;
+        const capturedId = id;
+
+        setTimeout(()=>{
+
+            const dayData =
+            appData[capturedKey];
+
+            if(!dayData){ return; }
+
+            const target =
+            dayData.tasks.find(
+                t => t.id === capturedId
+            );
+
+            if(
+                !target ||
+                !target.completed
+            ){
+                return;
+            }
+
+            dayData.tasks =
+            dayData.tasks.filter(
+                t => t.id !== capturedId
+            );
+
+            saveAll();
+
+            renderTaskArea();
+
+            renderTaskList();
+
+            refreshCalendar();
+
+            updateStats();
+
+        }, 2000);
+
+    }
+
 }
 
 /* =====================

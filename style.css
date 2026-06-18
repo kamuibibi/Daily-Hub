@@ -1008,6 +1008,26 @@ body.light-mode{
 
 }
 
+.action-btn-group{
+
+    display:flex;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+}
+
+.action-btn-group button{
+
+    flex:1;
+
+    font-size:13px;
+
+    padding:10px 8px;
+
+}
+
 .lock-reset-btn{
 
     background:transparent;

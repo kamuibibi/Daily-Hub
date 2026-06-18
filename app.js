@@ -237,6 +237,8 @@ function showSettingsPage(){
 
     renderTaskTagList();
 
+    renderTaskCompleteActionSetting();
+
 }
 
 /* =====================
