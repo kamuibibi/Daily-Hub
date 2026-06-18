@@ -951,3 +951,59 @@ body.light-mode{
     color:#111;
 
 }
+
+/* =====================
+   パスコードロック
+===================== */
+
+.lock-container{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-height:90vh;
+
+    gap:16px;
+
+    text-align:center;
+
+    padding:20px;
+
+}
+
+.lock-icon{
+
+    font-size:64px;
+
+}
+
+.lock-error{
+
+    color:#ff3b30;
+
+    font-size:14px;
+
+    min-height:18px;
+
+}
+
+@keyframes shake{
+
+    0%,100%{ transform:translateX(0); }
+
+    20%,60%{ transform:translateX(-8px); }
+
+    40%,80%{ transform:translateX(8px); }
+
+}
+
+.lock-shake{
+
+    animation:shake 0.4s;
+
+}

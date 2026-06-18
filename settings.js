@@ -253,23 +253,31 @@ function applyTheme(){
 
 function passcodeSetting(){
 
+    const current =
+    settings.passcode
+    ? "現在設定済み。\n"
+    : "現在未設定。\n";
+
     const code =
     prompt(
-        "4桁以上のパスコード"
+        current +
+        "新しいパスコードを入力\n（空白のままOKで解除）"
     );
 
-    if(!code){
+    if(code === null){
 
         return;
     }
 
     settings.passcode =
-    code;
+    code.trim();
 
     saveSettings();
 
     alert(
-        "保存しました"
+        code.trim()
+        ? "パスコードを設定しました"
+        : "パスコードを解除しました"
     );
 
 }
