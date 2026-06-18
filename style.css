@@ -1007,3 +1007,19 @@ body.light-mode{
     animation:shake 0.4s;
 
 }
+
+.lock-reset-btn{
+
+    background:transparent;
+
+    color:#888;
+
+    font-size:13px;
+
+    padding:8px;
+
+    margin-top:10px;
+
+    text-decoration:underline;
+
+}

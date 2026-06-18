@@ -439,6 +439,26 @@ window.addEventListener(
    パスコード解除
 ===================== */
 
+function resetAndUnlock(){
+
+    const ok =
+    confirm(
+        "パスコードを含む設定をリセットします。\nメモ・タスクのデータは保持されます。\n続けますか？"
+    );
+
+    if(!ok){
+
+        return;
+    }
+
+    localStorage.removeItem(
+        "dailyhub_settings"
+    );
+
+    location.reload();
+
+}
+
 function unlockApp(){
 
     const input =
