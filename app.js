@@ -385,6 +385,8 @@ window.addEventListener(
 
         generateRepeatTasks();
 
+        renderCalendar();
+
         await updateStats();
 
         if(
