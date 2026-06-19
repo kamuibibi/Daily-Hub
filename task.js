@@ -319,18 +319,23 @@ function toggleTask(id){
 
 function deleteTask(id){
 
-    const ok =
-    confirm(
-        "削除しますか？"
+    const key =
+    getDateKey();
+
+    const task =
+    appData[key].tasks.find(
+        t => t.id === id
     );
 
-    if(!ok){
+    if(!task){
 
         return;
     }
 
-    const key =
-    getDateKey();
+    moveToTrash(
+        key,
+        task
+    );
 
     appData[key].tasks =
     appData[key].tasks.filter(

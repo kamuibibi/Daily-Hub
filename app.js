@@ -406,6 +406,8 @@ window.addEventListener(
 
         loadAll();
 
+        loadTrash();
+
         generateRepeatTasks();
 
         goToday();
