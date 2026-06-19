@@ -827,6 +827,12 @@ body.light-mode{
 
 }
 
+.light-mode .day.selected{
+
+    border:2px solid #007aff;
+
+}
+
 .light-mode .day-header{
 
     color:#666666;
