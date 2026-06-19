@@ -285,6 +285,11 @@ onclick="showSettingsPage()">
 ⚙️ 設定
 </button>
 
+<button
+onclick="showTrashPage()">
+🗑️ ゴミ箱
+</button>
+
 </div>
 
 <!-- =====================
@@ -737,6 +742,33 @@ onclick="clearAllData()">
 </section>
 
 <!-- =====================
+TRASH PAGE
+===================== -->
+
+<section
+id="trashPage"
+class="page">
+
+<div class="topbar">
+
+<button
+onclick="goHome()">
+← ホーム
+</button>
+
+<h2>
+🗑️ ゴミ箱
+</h2>
+
+</div>
+
+<div
+id="trashListArea">
+</div>
+
+</section>
+
+<!-- =====================
 SCRIPT
 ===================== -->
 
@@ -751,6 +783,7 @@ SCRIPT
 <script src="settings.js"></script>
 <script src="reminder.js"></script>
 <script src="repeat.js"></script>
+<script src="trash.js"></script>
 <script src="app.js"></script>
 
 </body>

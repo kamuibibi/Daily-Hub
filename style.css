@@ -1165,3 +1165,87 @@ body.light-mode{
     text-decoration:underline;
 
 }
+
+/* =====================
+   ゴミ箱
+===================== */
+
+.trash-empty{
+
+    color:#888;
+
+    font-size:14px;
+
+    padding:16px 0;
+
+    text-align:center;
+
+}
+
+.trash-clear-btn{
+
+    background:#ff3b30;
+
+    width:100%;
+
+    margin-bottom:16px;
+
+}
+
+.trash-item-text{
+
+    margin:6px 0;
+
+    word-break:break-word;
+
+    line-height:1.5;
+
+}
+
+.trash-deleted-at{
+
+    font-size:12px;
+
+    color:#888;
+
+    margin-bottom:10px;
+
+}
+
+.trash-btn-row{
+
+    display:flex;
+
+    gap:8px;
+
+}
+
+.trash-restore-btn{
+
+    flex:1;
+
+    background:#34c759;
+
+}
+
+.trash-btn-row .delete-btn{
+
+    flex:1;
+
+}
+
+.light-mode .trash-clear-btn{
+
+    background:#ff3b30;
+
+    color:#fff;
+
+}
+
+.light-mode .trash-restore-btn{
+
+    background:#34c759;
+
+    color:#fff;
+
+}
