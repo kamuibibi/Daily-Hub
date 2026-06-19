@@ -123,9 +123,24 @@ function ensureDateData(){
 
             memo:"",
 
-            tasks:[]
+            tasks:[],
+
+            favorite:false,
+
+            important:false
 
         };
+
+    }
+    else{
+
+        if(appData[key].favorite === undefined){
+            appData[key].favorite = false;
+        }
+
+        if(appData[key].important === undefined){
+            appData[key].important = false;
+        }
 
     }
 
