@@ -192,14 +192,40 @@ function renderCalendar(){
 
         /* バッジ */
 
-        if(
-
-            appData[key]
-
-        ){
+        if(appData[key]){
 
             const data =
             appData[key];
+
+            if(data.favorite){
+
+                const b =
+                document.createElement(
+                    "span"
+                );
+
+                b.className = "badge-fav";
+
+                b.textContent = "★";
+
+                cell.appendChild(b);
+
+            }
+
+            if(data.important){
+
+                const b =
+                document.createElement(
+                    "span"
+                );
+
+                b.className = "badge-imp";
+
+                b.textContent = "●";
+
+                cell.appendChild(b);
+
+            }
 
             const hasMemo =
             data.memo &&
@@ -209,10 +235,7 @@ function renderCalendar(){
             data.tasks &&
             data.tasks.length;
 
-            if(
-                hasMemo ||
-                hasTask
-            ){
+            if(hasMemo || hasTask){
 
                 const badge =
                 document.createElement(
@@ -298,6 +321,89 @@ function selectDate(day){
     renderAttachmentArea();
 
     renderCalendar();
+
+    updateFlagButtons();
+
+}
+
+/* =====================
+   フラグトグル
+===================== */
+
+function toggleFavorite(){
+
+    if(!selectedDate){ return; }
+
+    ensureDateData();
+
+    const key = getDateKey();
+
+    appData[key].favorite =
+    !appData[key].favorite;
+
+    saveAll();
+
+    renderCalendar();
+
+    updateFlagButtons();
+
+}
+
+function toggleImportant(){
+
+    if(!selectedDate){ return; }
+
+    ensureDateData();
+
+    const key = getDateKey();
+
+    appData[key].important =
+    !appData[key].important;
+
+    saveAll();
+
+    renderCalendar();
+
+    updateFlagButtons();
+
+}
+
+function updateFlagButtons(){
+
+    const key = getDateKey();
+
+    const favBtn =
+    document.getElementById("favBtn");
+
+    const impBtn =
+    document.getElementById("impBtn");
+
+    if(!favBtn || !impBtn){ return; }
+
+    if(!key || !appData[key]){
+
+        favBtn.textContent = "☆";
+        favBtn.style.color = "#888";
+        impBtn.textContent = "○";
+        impBtn.style.color = "#888";
+
+        return;
+
+    }
+
+    const data = appData[key];
+
+    favBtn.textContent =
+    data.favorite ? "★" : "☆";
+
+    favBtn.style.color =
+    data.favorite ? "#ffcc00" : "#888";
+
+    impBtn.textContent =
+    data.important ? "●" : "○";
+
+    impBtn.style.color =
+    data.important ? "#ff3b30" : "#888";
 
 }
 
