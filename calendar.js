@@ -120,8 +120,20 @@ function renderCalendar(){
         cell.className =
         "day";
 
-        cell.textContent =
+        const numEl =
+        document.createElement(
+            "span"
+        );
+
+        numEl.className =
+        "day-num";
+
+        numEl.textContent =
         day;
+
+        cell.appendChild(
+            numEl
+        );
 
         const key =
         createDateKey(
