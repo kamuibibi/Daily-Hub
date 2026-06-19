@@ -393,7 +393,7 @@ window.addEventListener(
 
         generateRepeatTasks();
 
-        renderCalendar();
+        goToday();
 
         await updateStats();
 
