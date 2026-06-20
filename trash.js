@@ -122,6 +122,20 @@ function restoreFromTrash(
     .tasks
     .push(item.task);
 
+    if(item.task.repeatId){
+
+        const deleted =
+        appData[item.dateKey]
+        .deletedRepeatIds || [];
+
+        appData[item.dateKey]
+        .deletedRepeatIds =
+        deleted.filter(
+            id => id !== item.task.repeatId
+        );
+
+    }
+
     saveAll();
 
     trashData.splice(

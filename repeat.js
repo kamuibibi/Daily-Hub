@@ -239,13 +239,21 @@ function generateRepeatTasks(){
 
             }
 
+            const deletedRepeatIds =
+            appData[dateKey].deletedRepeatIds || [];
+
+            const alreadyDeleted =
+            deletedRepeatIds.includes(
+                template.id
+            );
+
             const alreadyExists =
             (appData[dateKey].tasks || [])
             .some(
                 t => t.repeatId === template.id
             );
 
-            if(!alreadyExists){
+            if(!alreadyExists && !alreadyDeleted){
 
                 idSeed++;
 
