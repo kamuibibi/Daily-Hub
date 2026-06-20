@@ -3,7 +3,107 @@
    Reminder
 ===================== */
 
-const firedReminders = new Set();
+const FIRED_KEY =
+"dailyhub_fired_reminders";
+
+let firedReminders = new Set();
+
+/* =====================
+   発火済み読込
+===================== */
+
+function loadFiredReminders(){
+
+    const raw =
+    localStorage.getItem(
+        FIRED_KEY
+    );
+
+    if(raw){
+
+        try{
+
+            const arr =
+            JSON.parse(raw);
+
+            firedReminders =
+            new Set(arr);
+
+        }
+        catch{
+
+            firedReminders =
+            new Set();
+
+        }
+
+    }
+    else{
+
+        firedReminders =
+        new Set();
+
+    }
+
+    cleanupFiredReminders();
+
+}
+
+/* =====================
+   発火済み保存
+===================== */
+
+function saveFiredReminders(){
+
+    localStorage.setItem(
+
+        FIRED_KEY,
+
+        JSON.stringify(
+            [...firedReminders]
+        )
+
+    );
+
+}
+
+/* =====================
+   古いエントリ削除
+   (2日以上前の日付)
+===================== */
+
+function cleanupFiredReminders(){
+
+    const now =
+    new Date();
+
+    const threshold =
+    new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 1
+    );
+
+    const thresholdKey =
+    threshold.toISOString()
+    .slice(0, 10);
+
+    firedReminders.forEach(id=>{
+
+        const dateKey =
+        id.slice(0, 10);
+
+        if(dateKey < thresholdKey){
+
+            firedReminders.delete(id);
+
+        }
+
+    });
+
+    saveFiredReminders();
+
+}
 
 function getTodayDateKey(){
 
@@ -100,6 +200,8 @@ function requestNotificationPermission(){
 
 function startReminderLoop(){
 
+    loadFiredReminders();
+
     checkReminders();
 
     setInterval(checkReminders, 30000);
@@ -173,7 +275,11 @@ function checkReminders(){
 
             if(isDueToday || isOverdue){
 
-                firedReminders.add(reminderId);
+                firedReminders.add(
+                    reminderId
+                );
+
+                saveFiredReminders();
 
                 fireReminder(task, dateKey);
 
