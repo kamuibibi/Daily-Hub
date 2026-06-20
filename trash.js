@@ -112,6 +112,12 @@ function restoreFromTrash(
 
     }
 
+    if(!appData[item.dateKey].tasks){
+
+        appData[item.dateKey].tasks = [];
+
+    }
+
     appData[item.dateKey]
     .tasks
     .push(item.task);
@@ -128,6 +134,8 @@ function restoreFromTrash(
     renderTrashPage();
 
     refreshCalendar();
+
+    renderTaskArea();
 
     updateStats();
 

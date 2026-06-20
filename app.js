@@ -181,6 +181,8 @@ function showPage(id){
 
         renderCalendar();
 
+        renderTaskArea();
+
     }
 
     window.scrollTo(
