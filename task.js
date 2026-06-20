@@ -332,6 +332,26 @@ function deleteTask(id){
         return;
     }
 
+    if(task.repeatId){
+
+        if(!appData[key].deletedRepeatIds){
+
+            appData[key].deletedRepeatIds = [];
+
+        }
+
+        if(
+            !appData[key].deletedRepeatIds
+            .includes(task.repeatId)
+        ){
+
+            appData[key].deletedRepeatIds
+            .push(task.repeatId);
+
+        }
+
+    }
+
     moveToTrash(
         key,
         task
