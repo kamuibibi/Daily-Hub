@@ -4,8 +4,9 @@
 ===================== */
 
 const DB_NAME = "DailyHubDB";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const STORE_ATTACHMENTS = "attachments";
+const STORE_ATTACH_TRASH = "attachmentTrash";
 
 let db = null;
 
@@ -72,6 +73,30 @@ function openDatabase(){
                 store.createIndex(
                     "createdAt",
                     "createdAt",
+                    {
+                        unique:false
+                    }
+                );
+
+            }
+
+            if(
+                !database.objectStoreNames.contains(
+                    STORE_ATTACH_TRASH
+                )
+            ){
+
+                const ts =
+                database.createObjectStore(
+                    STORE_ATTACH_TRASH,
+                    {
+                        keyPath:"id"
+                    }
+                );
+
+                ts.createIndex(
+                    "deletedAt",
+                    "deletedAt",
                     {
                         unique:false
                     }
@@ -481,6 +506,280 @@ async function restoreAttachmentRecord(record){
         request.onerror =
         ()=>reject(
             request.error
+        );
+
+    });
+
+}
+
+/* =====================
+   添付ゴミ箱へ移動
+===================== */
+
+async function moveAttachmentToTrash(id){
+
+    if(!db){ await openDatabase(); }
+
+    const record =
+    await new Promise(
+        (resolve,reject)=>{
+
+        const tx =
+        db.transaction(
+            STORE_ATTACHMENTS,
+            "readonly"
+        );
+
+        const store =
+        tx.objectStore(
+            STORE_ATTACHMENTS
+        );
+
+        const req =
+        store.get(id);
+
+        req.onsuccess =
+        ()=>resolve(
+            req.result
+        );
+
+        req.onerror =
+        ()=>reject(
+            req.error
+        );
+
+    });
+
+    if(!record){ return; }
+
+    return new Promise(
+        (resolve,reject)=>{
+
+        const tx =
+        db.transaction(
+            [STORE_ATTACHMENTS,STORE_ATTACH_TRASH],
+            "readwrite"
+        );
+
+        const attachStore =
+        tx.objectStore(
+            STORE_ATTACHMENTS
+        );
+
+        const trashStore =
+        tx.objectStore(
+            STORE_ATTACH_TRASH
+        );
+
+        const trashRecord =
+        Object.assign(
+            {},
+            record,
+            { deletedAt: Date.now() }
+        );
+
+        trashStore.add(trashRecord);
+
+        attachStore.delete(id);
+
+        tx.oncomplete =
+        ()=>resolve();
+
+        tx.onerror =
+        ()=>reject(tx.error);
+
+    });
+
+}
+
+/* =====================
+   添付ゴミ箱全取得
+===================== */
+
+async function getAllAttachmentTrash(){
+
+    if(!db){ await openDatabase(); }
+
+    return new Promise(
+        (resolve,reject)=>{
+
+        const tx =
+        db.transaction(
+            STORE_ATTACH_TRASH,
+            "readonly"
+        );
+
+        const store =
+        tx.objectStore(
+            STORE_ATTACH_TRASH
+        );
+
+        const req =
+        store.getAll();
+
+        req.onsuccess =
+        ()=>resolve(
+            req.result
+        );
+
+        req.onerror =
+        ()=>reject(
+            req.error
+        );
+
+    });
+
+}
+
+/* =====================
+   添付ゴミ箱から復元
+===================== */
+
+async function restoreAttachmentTrashById(id){
+
+    if(!db){ await openDatabase(); }
+
+    const record =
+    await new Promise(
+        (resolve,reject)=>{
+
+        const tx =
+        db.transaction(
+            STORE_ATTACH_TRASH,
+            "readonly"
+        );
+
+        const store =
+        tx.objectStore(
+            STORE_ATTACH_TRASH
+        );
+
+        const req =
+        store.get(id);
+
+        req.onsuccess =
+        ()=>resolve(
+            req.result
+        );
+
+        req.onerror =
+        ()=>reject(
+            req.error
+        );
+
+    });
+
+    if(!record){ return; }
+
+    return new Promise(
+        (resolve,reject)=>{
+
+        const tx =
+        db.transaction(
+            [STORE_ATTACHMENTS,STORE_ATTACH_TRASH],
+            "readwrite"
+        );
+
+        const attachStore =
+        tx.objectStore(
+            STORE_ATTACHMENTS
+        );
+
+        const trashStore =
+        tx.objectStore(
+            STORE_ATTACH_TRASH
+        );
+
+        const restored =
+        Object.assign(
+            {},
+            record
+        );
+
+        delete restored.deletedAt;
+
+        attachStore.put(restored);
+
+        trashStore.delete(id);
+
+        tx.oncomplete =
+        ()=>resolve();
+
+        tx.onerror =
+        ()=>reject(tx.error);
+
+    });
+
+}
+
+/* =====================
+   添付ゴミ箱から完全削除
+===================== */
+
+async function deleteAttachmentTrashById(id){
+
+    if(!db){ await openDatabase(); }
+
+    return new Promise(
+        (resolve,reject)=>{
+
+        const tx =
+        db.transaction(
+            STORE_ATTACH_TRASH,
+            "readwrite"
+        );
+
+        const store =
+        tx.objectStore(
+            STORE_ATTACH_TRASH
+        );
+
+        const req =
+        store.delete(id);
+
+        req.onsuccess =
+        ()=>resolve();
+
+        req.onerror =
+        ()=>reject(
+            req.error
+        );
+
+    });
+
+}
+
+/* =====================
+   添付ゴミ箱全削除
+===================== */
+
+async function clearAttachmentTrashDB(){
+
+    if(!db){ await openDatabase(); }
+
+    return new Promise(
+        (resolve,reject)=>{
+
+        const tx =
+        db.transaction(
+            STORE_ATTACH_TRASH,
+            "readwrite"
+        );
+
+        const store =
+        tx.objectStore(
+            STORE_ATTACH_TRASH
+        );
+
+        const req =
+        store.clear();
+
+        req.onsuccess =
+        ()=>resolve();
+
+        req.onerror =
+        ()=>reject(
+            req.error
         );
 
     });

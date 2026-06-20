@@ -164,7 +164,7 @@ function deleteFromTrash(
    ゴミ箱を空にする
 ===================== */
 
-function clearTrash(){
+async function clearTrash(){
 
     const ok =
     confirm(
@@ -180,6 +180,13 @@ function clearTrash(){
     trashData = [];
 
     saveTrash();
+
+    try{
+
+        await clearAttachmentTrashDB();
+
+    }
+    catch(e){}
 
     renderTrashPage();
 
@@ -203,7 +210,7 @@ function showTrashPage(){
    描画
 ===================== */
 
-function renderTrashPage(){
+async function renderTrashPage(){
 
     const area =
     document.getElementById(
@@ -218,7 +225,24 @@ function renderTrashPage(){
 
     area.innerHTML = "";
 
-    if(trashData.length === 0){
+    let attachTrash = [];
+
+    try{
+
+        attachTrash =
+        await getAllAttachmentTrash();
+
+    }
+    catch(e){
+
+        attachTrash = [];
+
+    }
+
+    if(
+        trashData.length === 0 &&
+        attachTrash.length === 0
+    ){
 
         const empty =
         document.createElement(
@@ -257,8 +281,27 @@ function renderTrashPage(){
         clearBtn
     );
 
-    trashData.forEach(
-        (item, index)=>{
+    const combined = [
+
+        ...trashData.map(item=>({
+            kind:"task",
+            item
+        })),
+
+        ...attachTrash.map(item=>({
+            kind:"attach",
+            item
+        }))
+
+    ].sort(
+        (a,b)=>
+        b.item.deletedAt -
+        a.item.deletedAt
+    );
+
+    combined.forEach(entry=>{
+
+        const { kind, item } = entry;
 
         const card =
         document.createElement(
@@ -267,6 +310,21 @@ function renderTrashPage(){
 
         card.className =
         "list-card";
+
+        const typeBadge =
+        document.createElement(
+            "span"
+        );
+
+        typeBadge.className =
+        kind === "task"
+        ? "trash-type-badge trash-type-task"
+        : "trash-type-badge trash-type-attach";
+
+        typeBadge.textContent =
+        kind === "task"
+        ? "✅ タスク"
+        : "📎 添付";
 
         const dateEl =
         document.createElement(
@@ -277,7 +335,9 @@ function renderTrashPage(){
         "small-date";
 
         dateEl.textContent =
-        item.dateKey;
+        kind === "task"
+        ? item.dateKey
+        : item.date;
 
         const textEl =
         document.createElement(
@@ -288,7 +348,9 @@ function renderTrashPage(){
         "trash-item-text";
 
         textEl.textContent =
-        item.task.text;
+        kind === "task"
+        ? item.task.text
+        : (item.title || item.name);
 
         const deletedEl =
         document.createElement(
@@ -322,12 +384,6 @@ function renderTrashPage(){
         restoreBtn.textContent =
         "↩ 元に戻す";
 
-        restoreBtn.onclick =
-        ()=>
-        restoreFromTrash(
-            index
-        );
-
         const delBtn =
         document.createElement(
             "button"
@@ -339,11 +395,32 @@ function renderTrashPage(){
         delBtn.textContent =
         "完全削除";
 
-        delBtn.onclick =
-        ()=>
-        deleteFromTrash(
-            index
-        );
+        if(kind === "task"){
+
+            restoreBtn.onclick =
+            ()=>restoreFromTrash(
+                trashData.indexOf(item)
+            );
+
+            delBtn.onclick =
+            ()=>deleteFromTrash(
+                trashData.indexOf(item)
+            );
+
+        }
+        else{
+
+            restoreBtn.onclick =
+            ()=>restoreAttachmentTrash(
+                item.id
+            );
+
+            delBtn.onclick =
+            ()=>deleteAttachmentTrash(
+                item.id
+            );
+
+        }
 
         btnRow.appendChild(
             restoreBtn
@@ -354,12 +431,40 @@ function renderTrashPage(){
         );
 
         card.appendChild(
+            typeBadge
+        );
+
+        card.appendChild(
             dateEl
         );
 
         card.appendChild(
             textEl
         );
+
+        if(
+            kind === "attach" &&
+            item.type &&
+            item.type.startsWith("image/") &&
+            item.file
+        ){
+
+            const img =
+            document.createElement(
+                "img"
+            );
+
+            img.className =
+            "attachment-preview";
+
+            img.src =
+            URL.createObjectURL(
+                item.file
+            );
+
+            card.appendChild(img);
+
+        }
 
         card.appendChild(
             deletedEl
@@ -374,6 +479,58 @@ function renderTrashPage(){
         );
 
     });
+
+}
+
+/* =====================
+   添付ゴミ箱から復元
+===================== */
+
+async function restoreAttachmentTrash(id){
+
+    try{
+
+        await restoreAttachmentTrashById(
+            id
+        );
+
+        await renderAttachmentArea();
+
+        await renderAttachmentList();
+
+        renderTrashPage();
+
+        updateStats();
+
+    }
+    catch(e){
+
+        console.error(e);
+
+    }
+
+}
+
+/* =====================
+   添付ゴミ箱から完全削除
+===================== */
+
+async function deleteAttachmentTrash(id){
+
+    try{
+
+        await deleteAttachmentTrashById(
+            id
+        );
+
+        renderTrashPage();
+
+    }
+    catch(e){
+
+        console.error(e);
+
+    }
 
 }
 

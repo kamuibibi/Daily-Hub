@@ -1249,3 +1249,53 @@ body.light-mode{
     color:#fff;
 
 }
+
+/* =====================
+   ゴミ箱タイプバッジ
+===================== */
+
+.trash-type-badge{
+
+    display:inline-block;
+
+    font-size:12px;
+
+    padding:2px 8px;
+
+    border-radius:10px;
+
+    margin-bottom:6px;
+
+}
+
+.trash-type-task{
+
+    background:#1a3a1a;
+
+    color:#34c759;
+
+}
+
+.trash-type-attach{
+
+    background:#1a2a3a;
+
+    color:#007aff;
+
+}
+
+.light-mode .trash-type-task{
+
+    background:#e0f5e8;
+
+    color:#1a7a30;
+
+}
+
+.light-mode .trash-type-attach{
+
+    background:#e0eaf5;
+
+    color:#005cc5;
+
+}
