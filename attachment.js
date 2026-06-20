@@ -429,19 +429,9 @@ document.body
 
 async function deleteAttachment(id){
 
-    const ok =
-    confirm(
-        "削除しますか？"
-    );
-
-    if(!ok){
-
-        return;
-    }
-
     try{
 
-        await deleteAttachmentById(
+        await moveAttachmentToTrash(
             id
         );
 
@@ -450,10 +440,6 @@ async function deleteAttachment(id){
         await renderAttachmentList();
 
         updateStats();
-
-        alert(
-            "削除しました"
-        );
 
     }
 
