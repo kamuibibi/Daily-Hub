@@ -560,6 +560,51 @@ function renderTaskTagList(){
 }
 
 /* =====================
+   キャッシュ強制クリア
+===================== */
+
+async function forceClearAndReload(){
+
+    const ok =
+    confirm(
+        "キャッシュを削除して再起動しますか？\n修正が反映されない場合に使用してください。"
+    );
+
+    if(!ok){ return; }
+
+    try{
+
+        if("serviceWorker" in navigator){
+
+            const regs =
+            await navigator.serviceWorker
+            .getRegistrations();
+
+            for(const reg of regs){
+
+                await reg.unregister();
+
+            }
+
+        }
+
+        const keys =
+        await caches.keys();
+
+        for(const key of keys){
+
+            await caches.delete(key);
+
+        }
+
+    }
+    catch(e){}
+
+    location.reload(true);
+
+}
+
+/* =====================
    起動
 ===================== */
 
