@@ -398,6 +398,52 @@ function getSortedKeys(){
 }
 
 /* =====================
+   ゴミ箱からdeletedRepeatIds同期
+   (旧バージョンで削除されたタスクの移行)
+===================== */
+
+function syncDeletedRepeatIdsFromTrash(){
+
+    trashData.forEach(item=>{
+
+        if(!item.task || !item.task.repeatId){
+            return;
+        }
+
+        const dateKey = item.dateKey;
+
+        if(!appData[dateKey]){
+
+            appData[dateKey] = {
+                memo:"",
+                tasks:[],
+                favorite:false,
+                important:false
+            };
+
+        }
+
+        if(!appData[dateKey].deletedRepeatIds){
+
+            appData[dateKey].deletedRepeatIds = [];
+
+        }
+
+        if(
+            !appData[dateKey].deletedRepeatIds
+            .includes(item.task.repeatId)
+        ){
+
+            appData[dateKey].deletedRepeatIds
+            .push(item.task.repeatId);
+
+        }
+
+    });
+
+}
+
+/* =====================
    起動
 ===================== */
 
@@ -409,6 +455,8 @@ window.addEventListener(
         loadAll();
 
         loadTrash();
+
+        syncDeletedRepeatIdsFromTrash();
 
         generateRepeatTasks();
 
