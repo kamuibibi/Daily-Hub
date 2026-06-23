@@ -57,8 +57,9 @@ function markRepeatDeleted(
     const map =
     loadDeletedInstances();
 
-    map[templateId + "|" + dateKey] =
-    true;
+    map[
+        String(templateId) + "|" + dateKey
+    ] = true;
 
     saveDeletedInstances(map);
 
@@ -73,7 +74,7 @@ function unmarkRepeatDeleted(
     loadDeletedInstances();
 
     delete map[
-        templateId + "|" + dateKey
+        String(templateId) + "|" + dateKey
     ];
 
     saveDeletedInstances(map);
@@ -321,13 +322,27 @@ function generateRepeatTasks(){
                 template.id + "|" + dateKey
             ]);
 
+            const alreadyInTrash =
+            (typeof trashData !== "undefined") &&
+            trashData.some(
+                item =>
+                item.dateKey === dateKey &&
+                item.task &&
+                String(item.task.repeatId) ===
+                String(template.id)
+            );
+
             const alreadyExists =
             (appData[dateKey].tasks || [])
             .some(
                 t => t.repeatId === template.id
             );
 
-            if(!alreadyExists && !alreadyDeleted){
+            if(
+                !alreadyExists &&
+                !alreadyDeleted &&
+                !alreadyInTrash
+            ){
 
                 idSeed++;
 
