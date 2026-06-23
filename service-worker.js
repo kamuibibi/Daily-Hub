@@ -4,7 +4,7 @@
 ===================== */
 
 const CACHE_NAME =
-"dailyhub-v15";
+"dailyhub-v16";
 
 const ASSETS = [
     "./",
@@ -20,6 +20,7 @@ const ASSETS = [
     "./stats.js",
     "./backup.js",
     "./settings.js",
+    "./i18n.js",
     "./reminder.js",
     "./repeat.js",
     "./trash.js",

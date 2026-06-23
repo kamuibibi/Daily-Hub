@@ -256,6 +256,8 @@ function showSettingsPage(){
 
     renderTaskCompleteActionSetting();
 
+    renderLangSetting();
+
 }
 
 /* =====================
@@ -351,9 +353,7 @@ async function updateStats(){
 async function clearAllData(){
 
     const ok =
-    confirm(
-        "全データを削除しますか？"
-    );
+    confirm(t("confirm.clear_all"));
 
     if(!ok){
 
@@ -370,9 +370,7 @@ async function clearAllData(){
 
     updateStats();
 
-    alert(
-        "削除完了"
-    );
+    alert(t("alert.clear_done"));
 
     location.reload();
 
@@ -477,6 +475,10 @@ window.addEventListener(
 
         loadTrash();
 
+        applyTranslations();
+
+        renderLangSetting();
+
         migrateDeletedRepeatInstances();
 
         generateRepeatTasks();
@@ -540,9 +542,7 @@ window.addEventListener(
 function resetAndUnlock(){
 
     const ok =
-    confirm(
-        "パスコードを含む設定をリセットします。\nメモ・タスクのデータは保持されます。\n続けますか？"
-    );
+    confirm(t("confirm.reset_passcode"));
 
     if(!ok){
 

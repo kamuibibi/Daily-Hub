@@ -23,7 +23,9 @@ let settings = {
 
     passcode:"",
 
-    taskCompleteAction:"strikethrough"
+    taskCompleteAction:"strikethrough",
+
+    lang:"ja"
 
 };
 
@@ -64,6 +66,12 @@ function loadSettings(){
 
             settings.taskCompleteAction =
             "strikethrough";
+
+        }
+
+        if(!settings.lang){
+
+            settings.lang = "ja";
 
         }
 
@@ -113,9 +121,7 @@ function addTag(){
 
     if(!tag){
 
-        alert(
-            "タグ名を入力してください"
-        );
+        alert(t("alert.enter_tag"));
 
         return;
 
@@ -146,7 +152,7 @@ function editTag(index){
 
     const newTag =
     prompt(
-        "変更後タグ",
+        t("prompt.edit_tag"),
         current
     );
 
@@ -173,9 +179,7 @@ function editTag(index){
 function deleteTag(index){
 
     const ok =
-    confirm(
-        "削除しますか？"
-    );
+    confirm(t("confirm.delete"));
 
     if(!ok){
 
@@ -264,13 +268,13 @@ function passcodeSetting(){
 
     const current =
     settings.passcode
-    ? "現在設定済み。\n"
-    : "現在未設定。\n";
+    ? t("prompt.passcode_set_prefix")
+    : t("prompt.passcode_notset_prefix");
 
     const code =
     prompt(
         current +
-        "新しいパスコードを入力\n（空白のままOKで解除）"
+        t("prompt.passcode_set")
     );
 
     if(code === null){
@@ -285,8 +289,8 @@ function passcodeSetting(){
 
     alert(
         code.trim()
-        ? "パスコードを設定しました"
-        : "パスコードを解除しました"
+        ? t("alert.passcode_set")
+        : t("alert.passcode_removed")
     );
 
 }
@@ -405,12 +409,12 @@ function renderTagList(){
 
             <button
             onclick="editTag(${index})">
-            編集
+            ${escapeHtml(t("tag.edit_btn"))}
             </button>
 
             <button
             onclick="deleteTag(${index})">
-            削除
+            ${escapeHtml(t("tag.delete_btn"))}
             </button>
 
             </div>
@@ -442,9 +446,7 @@ function addTaskTag(){
 
     if(!tag){
 
-        alert(
-            "タグ名を入力してください"
-        );
+        alert(t("alert.enter_tag"));
 
         return;
 
@@ -475,9 +477,7 @@ function addTaskTag(){
 function deleteTaskTag(index){
 
     const ok =
-    confirm(
-        "削除しますか？"
-    );
+    confirm(t("confirm.delete"));
 
     if(!ok){
 
@@ -519,7 +519,7 @@ function renderTaskTagList(){
     ){
 
         area.innerHTML =
-        `<div class="repeat-empty">タグなし</div>`;
+        `<div class="repeat-empty">${escapeHtml(t("tag.no_tags"))}</div>`;
 
         return;
 
@@ -545,7 +545,7 @@ function renderTaskTagList(){
 
             <button
             onclick="deleteTaskTag(${index})">
-            削除
+            ${escapeHtml(t("tag.delete_btn"))}
             </button>
             `;
 
@@ -566,9 +566,7 @@ function renderTaskTagList(){
 async function forceClearAndReload(){
 
     const ok =
-    confirm(
-        "キャッシュを削除して再起動しますか？\n修正が反映されない場合に使用してください。"
-    );
+    confirm(t("confirm.clear_cache"));
 
     if(!ok){ return; }
 

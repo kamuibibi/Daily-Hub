@@ -212,18 +212,14 @@ async function exportData(){
             1000
         );
 
-        alert(
-            "バックアップ作成完了"
-        );
+        alert(t("alert.backup_done"));
 
     }
     catch(error){
 
         console.error(error);
 
-        alert(
-            "バックアップ失敗"
-        );
+        alert(t("alert.backup_fail"));
 
     }
 
@@ -245,9 +241,7 @@ async function importData(){
         !input.files.length
     ){
 
-        alert(
-            "JSONファイルを選択してください"
-        );
+        alert(t("alert.select_json"));
 
         return;
 
@@ -271,18 +265,14 @@ async function importData(){
 
             if(!backupData.appData){
 
-                alert(
-                    "不正なファイルです"
-                );
+                alert(t("alert.invalid_file"));
 
                 return;
 
             }
 
             const ok =
-            confirm(
-                "現在のデータを上書きしますか？"
-            );
+            confirm(t("confirm.overwrite"));
 
             if(!ok){
 
@@ -345,9 +335,7 @@ async function importData(){
 
             }
 
-            alert(
-                "復元完了"
-            );
+            alert(t("alert.restore_done"));
 
             location.reload();
 
@@ -356,9 +344,7 @@ async function importData(){
 
             console.error(error);
 
-            alert(
-                "読込失敗"
-            );
+            alert(t("alert.restore_fail"));
 
         }
 
