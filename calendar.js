@@ -3,17 +3,40 @@
    Calendar
 ===================== */
 
-const WEEK_NAMES = [
+function getWeekNames(){
 
-    "日",
-    "月",
-    "火",
-    "水",
-    "木",
-    "金",
-    "土"
+    return [
+        t("cal.sun"),
+        t("cal.mon"),
+        t("cal.tue"),
+        t("cal.wed"),
+        t("cal.thu"),
+        t("cal.fri"),
+        t("cal.sat")
+    ];
 
-];
+}
+
+function formatYearMonth(year, month){
+
+    const lang =
+    (typeof getLang === "function")
+    ? getLang()
+    : "ja";
+
+    if(lang === "en"){
+
+        return new Date(year, month - 1, 1)
+        .toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long"
+        });
+
+    }
+
+    return `${year}年${month}月`;
+
+}
 
 /* =====================
    カレンダー描画
@@ -28,13 +51,6 @@ function renderCalendar(){
 
     calendar.innerHTML = "";
 
-    document
-    .getElementById(
-        "appTitle"
-    )
-    .textContent =
-    `${currentYear}年${currentMonth}月`;
-
     const appTitle =
     document.getElementById(
         "appTitle"
@@ -43,13 +59,16 @@ function renderCalendar(){
     if(appTitle){
 
         appTitle.textContent =
-        `${currentYear}年${currentMonth}月`;
+        formatYearMonth(
+            currentYear,
+            currentMonth
+        );
 
     }
 
     /* 曜日 */
 
-    WEEK_NAMES.forEach(day=>{
+    getWeekNames().forEach(day=>{
 
         const header =
         document.createElement(

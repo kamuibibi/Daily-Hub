@@ -176,9 +176,7 @@ function deleteFromTrash(
 async function clearTrash(){
 
     const ok =
-    confirm(
-        "ゴミ箱を空にしますか？"
-    );
+    confirm(t("confirm.clear_trash"));
 
     if(!ok){
 
@@ -262,7 +260,7 @@ async function renderTrashPage(){
         "trash-empty";
 
         empty.textContent =
-        "ゴミ箱は空です";
+        t("trash.empty");
 
         area.appendChild(
             empty
@@ -281,7 +279,7 @@ async function renderTrashPage(){
     "trash-clear-btn";
 
     clearBtn.textContent =
-    "🗑️ ゴミ箱を空にする";
+    t("trash.clear_btn");
 
     clearBtn.onclick =
     clearTrash;
@@ -332,8 +330,8 @@ async function renderTrashPage(){
 
         typeBadge.textContent =
         kind === "task"
-        ? "✅ タスク"
-        : "📎 添付";
+        ? t("trash.task_badge")
+        : t("trash.attach_badge");
 
         const dateEl =
         document.createElement(
@@ -391,7 +389,7 @@ async function renderTrashPage(){
         "trash-restore-btn";
 
         restoreBtn.textContent =
-        "↩ 元に戻す";
+        t("trash.restore_btn");
 
         const delBtn =
         document.createElement(
@@ -402,7 +400,7 @@ async function renderTrashPage(){
         "delete-btn";
 
         delBtn.textContent =
-        "完全削除";
+        t("trash.delete_btn");
 
         if(kind === "task"){
 
@@ -569,22 +567,22 @@ function formatDeletedAt(ts){
 
     if(min < 1){
 
-        return "たった今削除";
+        return t("trash.deleted_just_now");
 
     }
 
     if(min < 60){
 
-        return `${min}分前に削除`;
+        return t("trash.deleted_minutes", {n: min});
 
     }
 
     if(hour < 24){
 
-        return `${hour}時間前に削除`;
+        return t("trash.deleted_hours", {n: hour});
 
     }
 
-    return `${day}日前に削除`;
+    return t("trash.deleted_days", {n: day});
 
 }

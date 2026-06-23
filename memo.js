@@ -11,9 +11,7 @@ function saveMemo(){
 
     if(!selectedDate){
 
-        alert(
-            "日付を選択してください"
-        );
+        alert(t("alert.select_date"));
 
         return;
     }
@@ -387,7 +385,7 @@ function renderMemoList(){
         data-date="${key}"
         data-expanded="false"
         onclick="toggleMemoPreview(this)">
-        続きを読む
+        ${escapeHtml(t("memo.read_more"))}
         </button>
         ` : ""}
         `;
@@ -405,7 +403,7 @@ function renderMemoList(){
         area.innerHTML =
         `
         <div class="list-card">
-        メモはありません
+        ${escapeHtml(t("memo.no_memos"))}
         </div>
         `;
 
@@ -468,7 +466,9 @@ function toggleMemoPreview(button){
     isExpanded ? "false" : "true";
 
     button.textContent =
-    isExpanded ? "続きを読む" : "閉じる";
+    isExpanded
+    ? t("memo.read_more")
+    : t("memo.close");
 
 }
 
@@ -655,7 +655,7 @@ function renderMemoTags(){
     first.value = "";
 
     first.textContent =
-    "タグ選択";
+    t("home.tag_select");
 
     select.appendChild(
         first

@@ -159,9 +159,7 @@ function addRepeatTask(
 function deleteRepeatTask(id){
 
     const ok =
-    confirm(
-        "この繰り返しタスクを削除しますか？\n今後生成されなくなります。"
-    );
+    confirm(t("confirm.delete_repeat"));
 
     if(!ok){
 
@@ -207,13 +205,13 @@ function getRepeatLabel(repeat){
     switch(repeat){
 
         case "daily":
-            return "毎日";
+            return t("repeat.daily");
 
         case "weekly":
-            return "毎週";
+            return t("repeat.weekly");
 
         case "monthly":
-            return "毎月";
+            return t("repeat.monthly");
 
         default:
             return "";
@@ -450,7 +448,7 @@ function renderRepeatList(){
         area.innerHTML =
         `
         <div class="repeat-empty">
-        繰り返しタスクはありません
+        ${escapeHtml(t("repeat.empty"))}
         </div>
         `;
 
@@ -494,7 +492,7 @@ function renderRepeatList(){
         type="button"
         class="delete-btn"
         onclick="deleteRepeatTask(${template.id})">
-        削除
+        ${escapeHtml(t("repeat.delete_btn"))}
         </button>
         `;
 

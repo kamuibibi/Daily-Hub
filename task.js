@@ -11,9 +11,7 @@ function addTask(){
 
     if(!selectedDate){
 
-        alert(
-            "日付を選択してください"
-        );
+        alert(t("alert.select_date"));
 
         return;
     }
@@ -155,7 +153,7 @@ function renderTaskArea(){
         area.innerHTML =
         `
         <div class="list-card">
-            タスクなし
+            ${escapeHtml(t("task.no_tasks"))}
         </div>
         `;
 
@@ -198,7 +196,7 @@ function renderTaskArea(){
                 : ""}
 
                 ${task.fromMemo
-                ? `<span class="memo-badge">📝 メモ</span>`
+                ? `<span class="memo-badge">${escapeHtml(t("task.from_memo_badge"))}</span>`
                 : ""}
 
             </span>
@@ -210,7 +208,7 @@ function renderTaskArea(){
         type="button"
         class="delete-btn"
         onclick="deleteTask(${task.id})">
-            削除
+            ${escapeHtml(t("task.delete_btn"))}
         </button>`
         : ""}
         `;
@@ -487,7 +485,7 @@ function renderTaskList(){
         area.innerHTML =
         `
         <div class="list-card">
-        タスクはありません
+        ${escapeHtml(t("task.no_tasks_list"))}
         </div>
         `;
     }

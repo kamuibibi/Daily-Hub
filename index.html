@@ -84,10 +84,12 @@ Daily Hub Pro
 
 <input
 id="searchInput"
+data-i18n-placeholder="home.search_placeholder"
 placeholder="検索">
 
 <button
-onclick="runSearch()">
+onclick="runSearch()"
+data-i18n="home.search_btn">
 🔍 検索
 </button>
 
@@ -111,7 +113,8 @@ onclick="prevMonth()">
 </button>
 
 <button
-onclick="goToday()">
+onclick="goToday()"
+data-i18n="home.today_btn">
 今日
 </button>
 
@@ -133,7 +136,8 @@ class="card">
 
 <div class="date-flag-row">
 
-<h3 id="selectedDate">
+<h3 id="selectedDate"
+data-i18n="home.date_unselected">
 日付未選択
 </h3>
 
@@ -165,7 +169,7 @@ MEMO
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="home.memo_title">
 📝 メモ
 </h3>
 
@@ -175,6 +179,7 @@ MEMO
 <textarea
 id="memoInput"
 rows="5"
+data-i18n-placeholder="home.memo_placeholder"
 placeholder="メモを入力">
 </textarea>
 
@@ -186,7 +191,7 @@ TASK
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="home.task_title">
 ✅ タスク
 </h3>
 
@@ -195,17 +200,21 @@ TASK
 <input
 type="text"
 id="taskInput"
+data-i18n-placeholder="home.task_placeholder"
 placeholder="タスク入力">
 
 <button
-onclick="addTask()">
+onclick="addTask()"
+data-i18n="home.task_add_btn">
 追加
 </button>
 
 </div>
 
 <div class="reminder-row">
-<span class="reminder-label">⏰ リマインダー</span>
+<span
+class="reminder-label"
+data-i18n="home.reminder_label">⏰ リマインダー</span>
 <input
 type="time"
 id="taskReminderTime">
@@ -218,12 +227,14 @@ onclick="document.getElementById('taskReminderTime').value=''">
 </div>
 
 <div class="reminder-row">
-<span class="reminder-label">🔁 繰り返し</span>
+<span
+class="reminder-label"
+data-i18n="home.repeat_label">🔁 繰り返し</span>
 <select id="taskRepeat">
-<option value="">なし</option>
-<option value="daily">毎日</option>
-<option value="weekly">毎週</option>
-<option value="monthly">毎月</option>
+<option value="" data-i18n="home.repeat_none">なし</option>
+<option value="daily" data-i18n="home.repeat_daily">毎日</option>
+<option value="weekly" data-i18n="home.repeat_weekly">毎週</option>
+<option value="monthly" data-i18n="home.repeat_monthly">毎月</option>
 </select>
 </div>
 
@@ -239,7 +250,7 @@ ATTACHMENT
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="home.attach_title">
 📎 添付
 </h3>
 
@@ -249,7 +260,8 @@ id="attachmentInput"
 multiple>
 
 <button
-onclick="saveAttachment()">
+onclick="saveAttachment()"
+data-i18n="home.attach_save_btn">
 添付保存
 </button>
 
@@ -266,27 +278,32 @@ MENU
 <div class="menu-grid">
 
 <button
-onclick="showMemoList()">
+onclick="showMemoList()"
+data-i18n="menu.memo_list">
 📝 メモ一覧
 </button>
 
 <button
-onclick="showTaskList()">
+onclick="showTaskList()"
+data-i18n="menu.task_list">
 ✅ タスク一覧
 </button>
 
 <button
-onclick="showAttachmentList()">
+onclick="showAttachmentList()"
+data-i18n="menu.attach_list">
 📎 添付一覧
 </button>
 
 <button
-onclick="showSettingsPage()">
+onclick="showSettingsPage()"
+data-i18n="menu.settings">
 ⚙️ 設定
 </button>
 
 <button
-onclick="showTrashPage()">
+onclick="showTrashPage()"
+data-i18n="menu.trash">
 🗑️ ゴミ箱
 </button>
 
@@ -299,28 +316,28 @@ STATS
 <div id="statsArea">
 
 <div class="stat-card">
-メモ
+<span data-i18n="stat.memo">メモ</span>
 <span id="memoCount">
 0
 </span>
 </div>
 
 <div class="stat-card">
-タスク
+<span data-i18n="stat.task">タスク</span>
 <span id="taskCount">
 0
 </span>
 </div>
 
 <div class="stat-card">
-添付
+<span data-i18n="stat.attach">添付</span>
 <span id="attachmentCount">
 0
 </span>
 </div>
 
 <div class="stat-card">
-容量
+<span data-i18n="stat.storage">容量</span>
 <span id="storageSize">
 0MB
 </span>
@@ -360,11 +377,12 @@ class="page">
 <div class="topbar">
 
 <button
-onclick="goHome()">
+onclick="goHome()"
+data-i18n="nav.back_home">
 ← ホーム
 </button>
 
-<h2>
+<h2 data-i18n="page.memo_list">
 メモ一覧
 </h2>
 
@@ -387,11 +405,12 @@ class="page">
 <div class="topbar">
 
 <button
-onclick="goHome()">
+onclick="goHome()"
+data-i18n="nav.back_home">
 ← ホーム
 </button>
 
-<h2>
+<h2 data-i18n="page.task_list">
 タスク一覧
 </h2>
 
@@ -414,11 +433,12 @@ class="page">
 <div class="topbar">
 
 <button
-onclick="goHome()">
+onclick="goHome()"
+data-i18n="nav.back_home">
 ← ホーム
 </button>
 
-<h2>
+<h2 data-i18n="page.attach_list">
 添付一覧
 </h2>
 
@@ -441,11 +461,12 @@ class="page">
 <div class="topbar">
 
 <button
-onclick="goHome()">
+onclick="goHome()"
+data-i18n="nav.back_home">
 ← ホーム
 </button>
 
-<h2>
+<h2 data-i18n="page.stats">
 統計
 </h2>
 
@@ -468,11 +489,12 @@ class="page">
 <div class="topbar">
 
 <button
-onclick="goHome()">
+onclick="goHome()"
+data-i18n="nav.back_home">
 ← ホーム
 </button>
 
-<h2>
+<h2 data-i18n="page.backup">
 バックアップ
 </h2>
 
@@ -480,16 +502,19 @@ onclick="goHome()">
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="backup.export_title">
 📤 エクスポート
 </h3>
 
-<p class="backup-note">
+<p
+class="backup-note"
+data-i18n="backup.export_note">
 現在のデータをJSONファイルとして保存します。
 </p>
 
 <button
-onclick="exportData()">
+onclick="exportData()"
+data-i18n="backup.export_btn">
 JSON出力
 </button>
 
@@ -497,11 +522,13 @@ JSON出力
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="backup.import_title">
 📥 インポート
 </h3>
 
-<p class="backup-note">
+<p
+class="backup-note"
+data-i18n="backup.import_note">
 ブラウザやデバイスを変える際は、エクスポートしたJSONファイルをここから読み込んでください。
 </p>
 
@@ -510,7 +537,8 @@ type="file"
 id="importFile">
 
 <button
-onclick="importData()">
+onclick="importData()"
+data-i18n="backup.import_btn">
 JSON読込
 </button>
 
@@ -518,7 +546,7 @@ JSON読込
 
 <div class="card backup-info">
 
-<p>
+<p data-i18n-html="backup.warning">
 ⚠️ ブラウザが異なるとデータは共有されません。<br>
 Chrome → Safari など環境を変える場合は、必ずエクスポート → インポートでデータを移行してください。
 </p>
@@ -539,13 +567,42 @@ class="page">
 <div class="topbar">
 
 <button
-onclick="goHome()">
+onclick="goHome()"
+data-i18n="nav.back_home">
 ← ホーム
 </button>
 
-<h2>
+<h2 data-i18n="page.settings">
 ⚙️ 設定
 </h2>
+
+</div>
+
+<!-- 言語 -->
+
+<div class="card">
+
+<h3 data-i18n="settings.lang_title">
+🌐 言語 / Language
+</h3>
+
+<div class="action-btn-group">
+
+<button
+id="langJaBtn"
+onclick="setLang('ja')"
+data-i18n="settings.lang_ja_btn">
+日本語
+</button>
+
+<button
+id="langEnBtn"
+onclick="setLang('en')"
+data-i18n="settings.lang_en_btn">
+English
+</button>
+
+</div>
 
 </div>
 
@@ -553,7 +610,7 @@ onclick="goHome()">
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="settings.repeat_title">
 🔁 繰り返しタスク
 </h3>
 
@@ -566,7 +623,7 @@ onclick="goHome()">
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="settings.tag_title">
 🏷️ タグ管理
 </h3>
 
@@ -575,16 +632,18 @@ onclick="goHome()">
 <input
 type="text"
 id="newTagInput"
+data-i18n-placeholder="settings.tag_placeholder"
 placeholder="タグ名">
 
 <button
-onclick="addTag()">
+onclick="addTag()"
+data-i18n="settings.tag_add_btn">
 追加
 </button>
 
 </div>
 
-<h4>
+<h4 data-i18n="settings.tag_registered">
 登録済みタグ
 </h4>
 
@@ -598,11 +657,13 @@ id="tagListArea">
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="settings.task_tag_title">
 📝 タスク化メモ
 </h3>
 
-<p class="backup-note">
+<p
+class="backup-note"
+data-i18n="settings.task_tag_note">
 このタグを含むメモ行は自動的にタスクに変換されます。
 </p>
 
@@ -611,10 +672,12 @@ id="tagListArea">
 <input
 type="text"
 id="newTaskTagInput"
+data-i18n-placeholder="settings.task_tag_placeholder"
 placeholder="タスク化タグ（例:【タスク】）">
 
 <button
-onclick="addTaskTag()">
+onclick="addTaskTag()"
+data-i18n="settings.tag_add_btn">
 追加
 </button>
 
@@ -630,19 +693,21 @@ id="taskTagListArea">
 
 <div class="card">
 
-<h3>✅ タスク完了動作</h3>
+<h3 data-i18n="settings.task_complete_title">✅ タスク完了動作</h3>
 
 <div class="action-btn-group">
 
 <button
 id="actionStrikeBtn"
-onclick="setTaskCompleteAction('strikethrough')">
+onclick="setTaskCompleteAction('strikethrough')"
+data-i18n="settings.strike_btn">
 取り消し線のみ
 </button>
 
 <button
 id="actionDeleteBtn"
-onclick="setTaskCompleteAction('auto-delete')">
+onclick="setTaskCompleteAction('auto-delete')"
+data-i18n="settings.auto_delete_btn">
 取り消し線→2秒後に削除
 </button>
 
@@ -654,12 +719,13 @@ onclick="setTaskCompleteAction('auto-delete')">
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="settings.passcode_title">
 🔒 パスコード
 </h3>
 
 <button
-onclick="passcodeSetting()">
+onclick="passcodeSetting()"
+data-i18n="settings.passcode_btn">
 設定
 </button>
 
@@ -669,12 +735,13 @@ onclick="passcodeSetting()">
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="settings.notif_title">
 🔔 通知
 </h3>
 
 <button
-onclick="requestNotificationPermission()">
+onclick="requestNotificationPermission()"
+data-i18n="settings.notif_btn">
 通知を許可する
 </button>
 
@@ -684,17 +751,19 @@ onclick="requestNotificationPermission()">
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="settings.theme_title">
 🎨 テーマ
 </h3>
 
 <button
-onclick="setLightMode()">
+onclick="setLightMode()"
+data-i18n="settings.light_btn">
 ライトモード
 </button>
 
 <button
-onclick="setDarkMode()">
+onclick="setDarkMode()"
+data-i18n="settings.dark_btn">
 ダークモード
 </button>
 
@@ -704,16 +773,19 @@ onclick="setDarkMode()">
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="settings.update_title">
 🔄 アップデート
 </h3>
 
-<p style="font-size:13px;margin:0 0 10px;opacity:.75;">
+<p
+style="font-size:13px;margin:0 0 10px;opacity:.75;"
+data-i18n="settings.update_note">
 キャッシュを削除して最新版を読み込みます
 </p>
 
 <button
 onclick="forceClearAndReload()"
+data-i18n="settings.update_btn"
 style="background:#c0392b;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;">
 🗑️ キャッシュ削除 &amp; 再起動
 </button>
@@ -724,12 +796,13 @@ style="background:#c0392b;color:#fff;border:none;padding:8px 16px;border-radius:
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="settings.stats_title">
 📊 統計
 </h3>
 
 <button
-onclick="showStatsPage()">
+onclick="showStatsPage()"
+data-i18n="settings.stats_btn">
 統計を開く
 </button>
 
@@ -739,12 +812,13 @@ onclick="showStatsPage()">
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="settings.backup_title">
 💾 バックアップ
 </h3>
 
 <button
-onclick="showBackupPage()">
+onclick="showBackupPage()"
+data-i18n="settings.backup_btn">
 バックアップを開く
 </button>
 
@@ -754,11 +828,11 @@ onclick="showBackupPage()">
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="settings.info_title">
 ℹ️ アプリ情報
 </h3>
 
-<p>
+<p data-i18n="settings.info_version">
 Daily Hub Pro v3.1
 </p>
 
@@ -768,12 +842,13 @@ Daily Hub Pro v3.1
 
 <div class="card">
 
-<h3>
+<h3 data-i18n="settings.data_title">
 🗑️ データ管理
 </h3>
 
 <button
-onclick="clearAllData()">
+onclick="clearAllData()"
+data-i18n="settings.clear_data_btn">
 全データ削除
 </button>
 
@@ -792,11 +867,12 @@ class="page">
 <div class="topbar">
 
 <button
-onclick="goHome()">
+onclick="goHome()"
+data-i18n="nav.back_home">
 ← ホーム
 </button>
 
-<h2>
+<h2 data-i18n="page.trash">
 🗑️ ゴミ箱
 </h2>
 
@@ -821,6 +897,7 @@ SCRIPT
 <script src="stats.js"></script>
 <script src="backup.js"></script>
 <script src="settings.js"></script>
+<script src="i18n.js"></script>
 <script src="reminder.js"></script>
 <script src="repeat.js"></script>
 <script src="trash.js"></script>

@@ -54,7 +54,7 @@ function buildSearchCard(
     <div class="list-card search-card">
 
         <div class="small-date">
-        ${escapeHtml(date || "日付なし")}
+        ${escapeHtml(date || t("search.no_date"))}
         </div>
 
         <div class="search-type">
@@ -84,7 +84,7 @@ function buildAttachmentSearchCard(file){
     const title =
     file.title ||
     file.name ||
-    "添付ファイル";
+    t("search.attach_label");
 
     let preview = "";
 
@@ -139,11 +139,11 @@ function buildAttachmentSearchCard(file){
     <div class="list-card search-card">
 
         <div class="small-date">
-        ${escapeHtml(file.date || "日付なし")}
+        ${escapeHtml(file.date || t("search.no_date"))}
         </div>
 
         <div class="search-type">
-        📎 添付
+        📎 ${escapeHtml(t("search.attach_label"))}
         </div>
 
         <div class="search-text">
@@ -155,7 +155,7 @@ function buildAttachmentSearchCard(file){
         <button
         type="button"
         onclick="downloadAttachment('${file.id}')">
-        ダウンロード
+        ${escapeHtml(t("search.download_btn"))}
         </button>
 
     </div>
@@ -190,7 +190,7 @@ async function runSearch(){
         resultArea.innerHTML =
         `
         <div class="list-card">
-        検索文字を入力してください
+        ${escapeHtml(t("search.enter_keyword"))}
         </div>
         `;
 
@@ -200,7 +200,7 @@ async function runSearch(){
     resultArea.innerHTML =
     `
     <div class="list-card">
-    検索中...
+    ${escapeHtml(t("search.searching"))}
     </div>
     `;
 
@@ -229,7 +229,7 @@ async function runSearch(){
     html +=
     `
     <div class="list-card search-summary">
-    検索結果: ${total}件
+    ${escapeHtml(t("search.results", {n: total}))}
     </div>
     `;
 
@@ -237,7 +237,7 @@ async function runSearch(){
 
         html +=
         buildSearchCard(
-            "メモ",
+            t("search.memo_label"),
             "📝",
             item.date,
             item.text
@@ -249,12 +249,12 @@ async function runSearch(){
 
         const taskStatus =
         item.task.completed
-        ? "完了"
-        : "未完了";
+        ? t("search.task_done")
+        : t("search.task_undone");
 
         html +=
         buildSearchCard(
-            "タスク / " + taskStatus,
+            t("search.task_label") + " / " + taskStatus,
             "✅",
             item.date,
             item.task.text
@@ -276,7 +276,7 @@ async function runSearch(){
         html =
         `
         <div class="list-card">
-        検索結果なし
+        ${escapeHtml(t("search.no_results"))}
         </div>
         `;
 
