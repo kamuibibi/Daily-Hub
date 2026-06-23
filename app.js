@@ -8,6 +8,8 @@ const STORAGE_KEY =
 
 let appData = {};
 
+let attachmentDateSet = new Set();
+
 let today =
 new Date();
 
@@ -476,6 +478,8 @@ window.addEventListener(
         loadTrash();
 
         applyTranslations();
+
+        await refreshAttachmentDateSet();
 
         renderLangSetting();
 
