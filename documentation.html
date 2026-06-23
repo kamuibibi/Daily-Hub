@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Daily Hub Pro – Documentation</title>
+<style>
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:#222; background:#f5f5f7; line-height:1.7; }
+.wrap{ max-width:860px; margin:0 auto; padding:40px 24px 80px; }
+h1{ font-size:2rem; font-weight:700; margin-bottom:6px; }
+.subtitle{ color:#666; font-size:1rem; margin-bottom:40px; }
+h2{ font-size:1.25rem; font-weight:700; margin:40px 0 12px; padding-bottom:6px; border-bottom:2px solid #007aff; color:#007aff; }
+h3{ font-size:1rem; font-weight:700; margin:20px 0 8px; }
+p{ margin-bottom:12px; }
+ul,ol{ padding-left:1.4em; margin-bottom:12px; }
+li{ margin-bottom:4px; }
+code{ font-family:"SF Mono",Menlo,Monaco,monospace; font-size:.88em; background:#e8e8ed; padding:2px 6px; border-radius:4px; }
+.note{ background:#fff8e1; border-left:4px solid #ffc107; padding:10px 16px; border-radius:4px; margin-bottom:16px; font-size:.9rem; }
+.tip{ background:#e8f5e9; border-left:4px solid #4caf50; padding:10px 16px; border-radius:4px; margin-bottom:16px; font-size:.9rem; }
+table{ width:100%; border-collapse:collapse; margin-bottom:16px; font-size:.92rem; }
+th{ background:#007aff; color:#fff; padding:8px 12px; text-align:left; }
+td{ padding:8px 12px; border-bottom:1px solid #ddd; }
+tr:last-child td{ border-bottom:none; }
+.badge{ display:inline-block; background:#007aff; color:#fff; font-size:.75rem; padding:2px 8px; border-radius:20px; margin-right:4px; }
+.toc{ background:#fff; border-radius:10px; padding:20px 24px; margin-bottom:32px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+.toc a{ color:#007aff; text-decoration:none; display:block; padding:3px 0; }
+.toc a:hover{ text-decoration:underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Daily Hub Pro</h1>
+<p class="subtitle">Personal Schedule & Memo PWA — Documentation v3.1</p>
+
+<div class="toc">
+  <strong>Table of Contents</strong><br><br>
+  <a href="#overview">1. Overview</a>
+  <a href="#features">2. Features</a>
+  <a href="#installation">3. Installation</a>
+  <a href="#usage">4. Usage Guide</a>
+  <a href="#settings">5. Settings</a>
+  <a href="#backup">6. Backup & Restore</a>
+  <a href="#pwa">7. Installing as a PWA</a>
+  <a href="#browser">8. Browser Compatibility</a>
+  <a href="#faq">9. FAQ</a>
+  <a href="#changelog">10. Changelog</a>
+</div>
+
+<!-- ===================== -->
+<h2 id="overview">1. Overview</h2>
+
+<p>Daily Hub Pro is a fully client-side Progressive Web App (PWA) for daily memo, task, and file management. No server, no account, no subscription — all data is stored locally in the browser.</p>
+
+<p>It works offline, can be installed to the home screen on iOS and Android, and supports Japanese and English UI.</p>
+
+<!-- ===================== -->
+<h2 id="features">2. Features</h2>
+
+<ul>
+  <li><strong>Calendar view</strong> — monthly calendar with memo/task indicators and favorite/important flags</li>
+  <li><strong>Memo</strong> — per-day freeform text with auto-save and tag insertion</li>
+  <li><strong>Tasks</strong> — add, complete, delete tasks per day; complete action configurable (strikethrough or auto-delete after 2 s)</li>
+  <li><strong>Repeat tasks</strong> — daily / weekly / monthly repeating tasks with individual instance deletion</li>
+  <li><strong>Reminders</strong> — per-task time-based browser notifications</li>
+  <li><strong>Attachments</strong> — attach images, videos, and files per day via IndexedDB</li>
+  <li><strong>Tag system</strong> — custom tags for memo categorization; memo-to-task auto-conversion tags</li>
+  <li><strong>Search</strong> — full-text search across memos, tasks, and attachments</li>
+  <li><strong>Trash</strong> — soft-delete with restore for tasks and attachments</li>
+  <li><strong>Backup / Restore</strong> — export and import all data as a single JSON file</li>
+  <li><strong>Passcode lock</strong> — numeric passcode screen on app launch</li>
+  <li><strong>Themes</strong> — dark mode and light mode</li>
+  <li><strong>Language</strong> — Japanese and English UI switching</li>
+  <li><strong>PWA</strong> — installable, works fully offline via Service Worker</li>
+  <li><strong>Statistics</strong> — memo, task, attachment counts and storage usage</li>
+</ul>
+
+<!-- ===================== -->
+<h2 id="installation">3. Installation</h2>
+
+<h3>Option A — Open directly in browser</h3>
+<ol>
+  <li>Unzip the downloaded package.</li>
+  <li>Open <code>index.html</code> in any modern browser.</li>
+</ol>
+<div class="note">⚠️ Some browsers restrict Service Worker and IndexedDB when opening files via <code>file://</code>. For full functionality, use Option B or C.</div>
+
+<h3>Option B — Local server (recommended for development)</h3>
+<ol>
+  <li>Install Node.js if not already installed.</li>
+  <li>In the project folder, run:
+    <br><code>npx serve .</code>
+  </li>
+  <li>Open <code>http://localhost:3000</code> in your browser.</li>
+</ol>
+
+<h3>Option C — Deploy to static hosting</h3>
+<p>Upload all files to any static host (GitHub Pages, Netlify, Vercel, your own server). No build step required.</p>
+<ul>
+  <li>GitHub Pages: push to a repository and enable Pages in Settings.</li>
+  <li>Netlify / Vercel: drag-and-drop the project folder.</li>
+</ul>
+
+<!-- ===================== -->
+<h2 id="usage">4. Usage Guide</h2>
+
+<h3>Selecting a date</h3>
+<p>Tap any day on the calendar. The memo and task panels below update to show that day's data. The selected day is highlighted.</p>
+
+<h3>Writing a memo</h3>
+<p>Type in the memo textarea. Changes are auto-saved. Use the tag selector dropdown to insert a tag at the cursor position.</p>
+
+<h3>Adding a task</h3>
+<ol>
+  <li>Type a task name in the task input field.</li>
+  <li>(Optional) Set a reminder time with the ⏰ time picker.</li>
+  <li>(Optional) Choose a repeat interval: Daily / Weekly / Monthly.</li>
+  <li>Tap <strong>Add</strong>.</li>
+</ol>
+
+<h3>Completing a task</h3>
+<p>Check the checkbox next to a task. Depending on the <em>Task Complete Action</em> setting it will either show a strikethrough or be moved to Trash after 2 seconds.</p>
+
+<h3>Repeat tasks</h3>
+<p>When a repeat interval is chosen on a task, a template is saved and instances are automatically generated for future dates. Deleting one instance only hides that occurrence — the template continues. To stop all future occurrences, go to <strong>Settings → Repeat Tasks</strong> and delete the template.</p>
+
+<h3>Attachments</h3>
+<ol>
+  <li>Select a date on the calendar.</li>
+  <li>Choose one or more files with the file picker.</li>
+  <li>Tap <strong>Save attachment</strong>.</li>
+</ol>
+<p>Images and videos display a preview. All files can be downloaded from the Attachment List page.</p>
+
+<h3>Search</h3>
+<p>Type a keyword in the search box on the home screen and tap 🔍. Results show matching memos, tasks, and attachment names.</p>
+
+<h3>Trash</h3>
+<p>Deleted tasks and attachments go to Trash. Open <strong>Trash</strong> from the home menu to restore or permanently delete items.</p>
+
+<!-- ===================== -->
+<h2 id="settings">5. Settings</h2>
+
+<table>
+  <tr><th>Setting</th><th>Description</th></tr>
+  <tr><td>Language</td><td>Switch UI between 日本語 (Japanese) and English</td></tr>
+  <tr><td>Repeat Tasks</td><td>View and delete repeat task templates</td></tr>
+  <tr><td>Tag Management</td><td>Add / edit / delete memo tags</td></tr>
+  <tr><td>Memo to Task</td><td>Tags that auto-convert memo lines into tasks</td></tr>
+  <tr><td>Task Complete Action</td><td>Strikethrough only, or strikethrough then auto-delete after 2 s</td></tr>
+  <tr><td>Passcode</td><td>Set a numeric passcode shown on app launch</td></tr>
+  <tr><td>Notifications</td><td>Request browser notification permission for reminders</td></tr>
+  <tr><td>Theme</td><td>Light mode or dark mode</td></tr>
+  <tr><td>Update</td><td>Clear Service Worker cache and reload (use when updates don't appear)</td></tr>
+  <tr><td>Statistics</td><td>View memo/task/attachment counts and storage used</td></tr>
+  <tr><td>Backup</td><td>Export or import all data as JSON</td></tr>
+  <tr><td>Data Management</td><td>Delete all data permanently</td></tr>
+</table>
+
+<!-- ===================== -->
+<h2 id="backup">6. Backup &amp; Restore</h2>
+
+<div class="tip">💡 Always export a backup before switching browsers or devices. Data is stored in the browser and is not synced automatically.</div>
+
+<h3>Export</h3>
+<ol>
+  <li>Go to <strong>Settings → Backup → Open backup</strong>.</li>
+  <li>Tap <strong>Export JSON</strong>.</li>
+  <li>A <code>.json</code> file is downloaded to your device.</li>
+</ol>
+
+<h3>Import</h3>
+<ol>
+  <li>Go to <strong>Settings → Backup → Open backup</strong>.</li>
+  <li>Tap the file input and select your <code>.json</code> backup file.</li>
+  <li>Tap <strong>Import JSON</strong>.</li>
+  <li>Confirm the overwrite prompt. The app reloads with restored data.</li>
+</ol>
+
+<!-- ===================== -->
+<h2 id="pwa">7. Installing as a PWA</h2>
+
+<h3>iOS (Safari)</h3>
+<ol>
+  <li>Open the app URL in Safari.</li>
+  <li>Tap the Share button (box with arrow).</li>
+  <li>Tap <strong>Add to Home Screen</strong>.</li>
+</ol>
+
+<h3>Android (Chrome)</h3>
+<ol>
+  <li>Open the app URL in Chrome.</li>
+  <li>Tap the ⋮ menu.</li>
+  <li>Tap <strong>Add to Home screen</strong> or <strong>Install app</strong>.</li>
+</ol>
+
+<h3>Desktop (Chrome / Edge)</h3>
+<ol>
+  <li>Open the app URL.</li>
+  <li>Click the install icon (⊕) in the address bar.</li>
+</ol>
+
+<!-- ===================== -->
+<h2 id="browser">8. Browser Compatibility</h2>
+
+<table>
+  <tr><th>Browser</th><th>Support</th><th>Notes</th></tr>
+  <tr><td>Chrome 90+</td><td>✅ Full</td><td>Recommended</td></tr>
+  <tr><td>Edge 90+</td><td>✅ Full</td><td></td></tr>
+  <tr><td>Safari 15+ (iOS/macOS)</td><td>✅ Full</td><td>PWA install via Share menu on iOS</td></tr>
+  <tr><td>Firefox 90+</td><td>✅ Full</td><td></td></tr>
+  <tr><td>Samsung Internet</td><td>✅ Full</td><td></td></tr>
+  <tr><td>IE / Legacy browsers</td><td>❌ Not supported</td><td>Requires ES2020+</td></tr>
+</table>
+
+<!-- ===================== -->
+<h2 id="faq">9. FAQ</h2>
+
+<h3>My data disappeared after clearing browser cache.</h3>
+<p>Data is stored in localStorage and IndexedDB. Clearing browser data removes it. Always use <strong>Export JSON</strong> before clearing cache or switching browsers.</p>
+
+<h3>Notifications are not appearing.</h3>
+<ol>
+  <li>Go to <strong>Settings → Notifications → Allow notifications</strong>.</li>
+  <li>Accept the browser permission prompt.</li>
+  <li>Make sure the browser (or PWA) is running in the background.</li>
+</ol>
+
+<h3>The app is showing an old version.</h3>
+<p>Go to <strong>Settings → Update → Clear cache &amp; restart</strong>. This unregisters the Service Worker and reloads the latest files.</p>
+
+<h3>A repeat task keeps reappearing after I delete it.</h3>
+<p>Deleting a single occurrence only hides that date's instance. To stop all future occurrences, go to <strong>Settings → Repeat Tasks</strong> and delete the template.</p>
+
+<h3>Can I use this on multiple devices?</h3>
+<p>Data does not sync automatically between devices. Use <strong>Export JSON</strong> on the source device and <strong>Import JSON</strong> on the destination device to transfer data.</p>
+
+<!-- ===================== -->
+<h2 id="changelog">10. Changelog</h2>
+
+<table>
+  <tr><th>Version</th><th>Changes</th></tr>
+  <tr><td>v3.1</td><td>Added Japanese/English language switcher; fixed repeat task deletion and trash bugs; added cache-clear button; improved statistics page</td></tr>
+  <tr><td>v3.0</td><td>Attachment trash; memo-to-task tag conversion; passcode lock; tag management; dark/light theme; backup/restore; statistics; search</td></tr>
+</table>
+
+<br>
+<p style="color:#999;font-size:.85rem;text-align:center;">Daily Hub Pro v3.1 — &copy; 2025</p>
+
+</div>
+</body>
+</html>
