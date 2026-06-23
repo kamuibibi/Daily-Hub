@@ -176,6 +176,24 @@ function deleteRepeatTask(id){
 
     saveRepeatTasks(templates);
 
+    const map =
+    loadDeletedInstances();
+
+    const prefix =
+    String(id) + "|";
+
+    Object.keys(map).forEach(k=>{
+
+        if(k.startsWith(prefix)){
+
+            delete map[k];
+
+        }
+
+    });
+
+    saveDeletedInstances(map);
+
     renderRepeatList();
 
 }
