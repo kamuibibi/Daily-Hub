@@ -1,0 +1,113 @@
+===================================================
+DAILY HUB PRO — CodeCanyon Item Description
+(Paste this into the "Description" field as HTML)
+===================================================
+
+<h2>Daily Hub Pro — Personal Schedule & Memo PWA</h2>
+
+<p>Daily Hub Pro is a fully client-side <strong>Progressive Web App</strong> for daily memo, task, and file management. No server. No account. No subscription. All data is stored privately in the user's browser.</p>
+
+<p>It installs to the home screen on iOS, Android, and desktop — and works completely <strong>offline</strong>.</p>
+
+<hr>
+
+<h3>✅ Key Features</h3>
+<ul>
+<li><strong>Calendar</strong> — monthly view with memo/task dot indicators and ★ favorite / ● important flags</li>
+<li><strong>Memo</strong> — per-day freeform notes with auto-save, custom tags, and tag-based insert</li>
+<li><strong>Tasks</strong> — add, check, delete tasks per day; configurable complete action (strikethrough or auto-delete)</li>
+<li><strong>Repeat Tasks</strong> — daily / weekly / monthly repeating tasks; delete individual instances or the whole series</li>
+<li><strong>Reminders</strong> — per-task browser push notifications</li>
+<li><strong>Attachments</strong> — attach images, videos, and files (IndexedDB); image/video preview</li>
+<li><strong>Tag System</strong> — custom tags for memos; auto-convert tagged memo lines into tasks</li>
+<li><strong>Full-text Search</strong> — search across memos, tasks, and attachment names</li>
+<li><strong>Trash</strong> — soft-delete with restore for tasks and attachments</li>
+<li><strong>Backup / Restore</strong> — export and import all data as a single JSON file</li>
+<li><strong>Passcode Lock</strong> — numeric lock screen on app launch</li>
+<li><strong>Dark &amp; Light Mode</strong></li>
+<li><strong>Japanese / English language switcher</strong></li>
+<li><strong>Statistics</strong> — memo, task, attachment counts and storage usage</li>
+<li><strong>PWA</strong> — installable, fully offline via Service Worker</li>
+</ul>
+
+<hr>
+
+<h3>📦 What's Included</h3>
+<ul>
+<li>Full source code (HTML, CSS, vanilla JavaScript — no frameworks)</li>
+<li>Service Worker for offline support</li>
+<li>Web App Manifest for PWA install</li>
+<li>Complete documentation (documentation.html)</li>
+</ul>
+
+<hr>
+
+<h3>🚀 Tech Stack</h3>
+<ul>
+<li>Pure HTML5 / CSS3 / Vanilla JavaScript (ES2020)</li>
+<li>No dependencies, no npm, no build step</li>
+<li>localStorage for app data and settings</li>
+<li>IndexedDB for attachments</li>
+<li>Service Worker (network-first caching strategy)</li>
+</ul>
+
+<hr>
+
+<h3>🌐 Browser Support</h3>
+<ul>
+<li>Chrome 90+ ✅</li>
+<li>Edge 90+ ✅</li>
+<li>Safari 15+ (iOS &amp; macOS) ✅</li>
+<li>Firefox 90+ ✅</li>
+<li>Samsung Internet ✅</li>
+</ul>
+
+<hr>
+
+<h3>📋 How to Use</h3>
+<ol>
+<li>Unzip and upload all files to any static host (GitHub Pages, Netlify, Vercel, or your own server)</li>
+<li>Open the URL in a browser</li>
+<li>Install to home screen for the full app experience</li>
+</ol>
+<p>No server configuration required. No database. No backend.</p>
+
+<hr>
+
+<h3>📄 Documentation</h3>
+<p>Full documentation is included in <code>documentation.html</code>. Covers installation, all features, backup/restore, PWA setup, FAQ, and changelog.</p>
+
+===================================================
+ITEM DETAILS (fill in on submission form)
+===================================================
+
+Category:       Site Templates > Mobile
+OR:             JavaScript > Miscellaneous
+
+Tags:           pwa, progressive web app, todo, task manager, memo, calendar, scheduler, offline, vanilla js, mobile
+
+Compatible browsers: Chrome, Firefox, Safari, Edge
+
+Software version: HTML5, CSS3, ES2020
+
+High resolution: No
+
+Widget Ready: No
+
+Demo URL: https://kamuibibi.github.io/Daily-Hub/
+
+Suggested price: $15 – $19
+
+===================================================
+SHORT DESCRIPTION (shown in search results, ~150 chars)
+===================================================
+
+A fully offline Progressive Web App for daily memos, tasks, repeat reminders, and file attachments. No server. Pure HTML/CSS/JS.
+
+===================================================
+NOTES FOR REVIEWER
+===================================================
+
+- All data is stored client-side (localStorage + IndexedDB). No network requests are made except for Service Worker asset caching.
+- The app is fully functional offline after the first load.
+- Source code is clean, commented, and split into logical modules (app.js, calendar.js, memo.js, task.js, repeat.js, trash.js, settings.js, i18n.js, backup.js, reminder.js, attachment.js, search.js, stats.js, db.js).
