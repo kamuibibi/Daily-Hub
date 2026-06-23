@@ -292,6 +292,20 @@ function toggleTask(id){
                 return;
             }
 
+            if(target.repeatId){
+
+                markRepeatDeleted(
+                    target.repeatId,
+                    capturedKey
+                );
+
+            }
+
+            moveToTrash(
+                capturedKey,
+                target
+            );
+
             dayData.tasks =
             dayData.tasks.filter(
                 t => t.id !== capturedId
