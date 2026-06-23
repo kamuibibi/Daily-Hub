@@ -62,6 +62,8 @@ await saveAttachmentToDB(
 
     await renderAttachmentArea();
 
+    await refreshAttachmentDateSet();
+
     refreshCalendar();
 
     updateStats();
@@ -439,6 +441,8 @@ async function deleteAttachment(id){
 
         await renderAttachmentList();
 
+        await refreshAttachmentDateSet();
+
         updateStats();
 
     }
@@ -454,5 +458,33 @@ async function deleteAttachment(id){
         );
 
     }
+
+}
+
+/* =====================
+   添付日付キャッシュ更新
+===================== */
+
+async function refreshAttachmentDateSet(){
+
+    attachmentDateSet = new Set();
+
+    try{
+
+        const files =
+        await getAllAttachments();
+
+        files.forEach(f=>{
+
+            if(f.date){
+
+                attachmentDateSet.add(f.date);
+
+            }
+
+        });
+
+    }
+    catch(e){}
 
 }

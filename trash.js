@@ -505,6 +505,8 @@ async function restoreAttachmentTrash(id){
 
         await renderAttachmentList();
 
+        await refreshAttachmentDateSet();
+
         renderTrashPage();
 
         updateStats();

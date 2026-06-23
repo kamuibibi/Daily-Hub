@@ -266,7 +266,10 @@ function renderCalendar(){
             data.tasks &&
             data.tasks.length;
 
-            if(hasMemo || hasTask){
+            const hasAttachment =
+            attachmentDateSet.has(key);
+
+            if(hasMemo || hasTask || hasAttachment){
 
                 const badge =
                 document.createElement(
