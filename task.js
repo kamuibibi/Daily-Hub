@@ -543,6 +543,72 @@ function toggleTaskFromList(
 
     refreshCalendar();
 
+    if(
+        task.completed &&
+        settings.taskCompleteAction
+        === "auto-delete"
+    ){
+
+        const capturedDateKey = dateKey;
+        const capturedId = taskId;
+
+        setTimeout(()=>{
+
+            const dayData =
+            appData[capturedDateKey];
+
+            if(!dayData){ return; }
+
+            const target =
+            dayData.tasks.find(
+                t => t.id === capturedId
+            );
+
+            if(
+                !target ||
+                !target.completed
+            ){
+                return;
+            }
+
+            if(target.repeatId){
+
+                markRepeatDeleted(
+                    target.repeatId,
+                    capturedDateKey
+                );
+
+            }
+
+            moveToTrash(
+                capturedDateKey,
+                target
+            );
+
+            dayData.tasks =
+            dayData.tasks.filter(
+                t => t.id !== capturedId
+            );
+
+            saveAll();
+
+            renderTaskList();
+
+            if(
+                selectedDate &&
+                getDateKey() === capturedDateKey
+            ){
+                renderTaskArea();
+            }
+
+            refreshCalendar();
+
+            updateStats();
+
+        }, 2000);
+
+    }
+
 }
 
 /* =====================
