@@ -6,6 +6,80 @@
 const REPEAT_KEY =
 "dailyhub_repeat";
 
+const DELETED_INSTANCES_KEY =
+"dailyhub_deleted_repeat_instances";
+
+/* =====================
+   削除済みインスタンス管理
+   （appDataとは独立したキーで保存）
+===================== */
+
+function loadDeletedInstances(){
+
+    const raw =
+    localStorage.getItem(
+        DELETED_INSTANCES_KEY
+    );
+
+    if(raw){
+
+        try{
+
+            return JSON.parse(raw);
+
+        }
+        catch{
+
+            return {};
+
+        }
+
+    }
+
+    return {};
+
+}
+
+function saveDeletedInstances(map){
+
+    localStorage.setItem(
+        DELETED_INSTANCES_KEY,
+        JSON.stringify(map)
+    );
+
+}
+
+function markRepeatDeleted(
+    templateId,
+    dateKey
+){
+
+    const map =
+    loadDeletedInstances();
+
+    map[templateId + "|" + dateKey] =
+    true;
+
+    saveDeletedInstances(map);
+
+}
+
+function unmarkRepeatDeleted(
+    templateId,
+    dateKey
+){
+
+    const map =
+    loadDeletedInstances();
+
+    delete map[
+        templateId + "|" + dateKey
+    ];
+
+    saveDeletedInstances(map);
+
+}
+
 /* =====================
    テンプレート読込・保存
 ===================== */
@@ -204,6 +278,9 @@ function generateRepeatTasks(){
 
     let idSeed = Date.now();
 
+    const deletedMap =
+    loadDeletedInstances();
+
     templates.forEach(template=>{
 
         const daysAhead =
@@ -239,13 +316,10 @@ function generateRepeatTasks(){
 
             }
 
-            const deletedRepeatIds =
-            appData[dateKey].deletedRepeatIds || [];
-
             const alreadyDeleted =
-            deletedRepeatIds.includes(
-                template.id
-            );
+            !!(deletedMap[
+                template.id + "|" + dateKey
+            ]);
 
             const alreadyExists =
             (appData[dateKey].tasks || [])

@@ -124,14 +124,9 @@ function restoreFromTrash(
 
     if(item.task.repeatId){
 
-        const deleted =
-        appData[item.dateKey]
-        .deletedRepeatIds || [];
-
-        appData[item.dateKey]
-        .deletedRepeatIds =
-        deleted.filter(
-            id => id !== item.task.repeatId
+        unmarkRepeatDeleted(
+            item.task.repeatId,
+            item.dateKey
         );
 
     }
