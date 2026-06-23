@@ -620,6 +620,8 @@ window.addEventListener(
 
         renderTaskTagList();
 
+        renderMemoTags();
+
     }
 
 );
