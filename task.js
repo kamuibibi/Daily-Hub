@@ -334,21 +334,10 @@ function deleteTask(id){
 
     if(task.repeatId){
 
-        if(!appData[key].deletedRepeatIds){
-
-            appData[key].deletedRepeatIds = [];
-
-        }
-
-        if(
-            !appData[key].deletedRepeatIds
-            .includes(task.repeatId)
-        ){
-
-            appData[key].deletedRepeatIds
-            .push(task.repeatId);
-
-        }
+        markRepeatDeleted(
+            task.repeatId,
+            key
+        );
 
     }
 

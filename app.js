@@ -398,48 +398,69 @@ function getSortedKeys(){
 }
 
 /* =====================
-   ゴミ箱からdeletedRepeatIds同期
-   (旧バージョンで削除されたタスクの移行)
+   削除済み繰り返しインスタンスの移行
+   （旧appData内 deletedRepeatIds → 新独立キー）
 ===================== */
 
-function syncDeletedRepeatIdsFromTrash(){
+function migrateDeletedRepeatInstances(){
 
+    const map =
+    loadDeletedInstances();
+
+    let changed = false;
+
+    // ゴミ箱から移行
     trashData.forEach(item=>{
 
         if(!item.task || !item.task.repeatId){
             return;
         }
 
-        const dateKey = item.dateKey;
+        const k =
+        item.task.repeatId +
+        "|" +
+        item.dateKey;
 
-        if(!appData[dateKey]){
+        if(!map[k]){
 
-            appData[dateKey] = {
-                memo:"",
-                tasks:[],
-                favorite:false,
-                important:false
-            };
-
-        }
-
-        if(!appData[dateKey].deletedRepeatIds){
-
-            appData[dateKey].deletedRepeatIds = [];
-
-        }
-
-        if(
-            !appData[dateKey].deletedRepeatIds
-            .includes(item.task.repeatId)
-        ){
-
-            appData[dateKey].deletedRepeatIds
-            .push(item.task.repeatId);
+            map[k] = true;
+            changed = true;
 
         }
 
     });
+
+    // appData内のdeletedRepeatIdsから移行
+    Object.keys(appData).forEach(dateKey=>{
+
+        const ids =
+        appData[dateKey].deletedRepeatIds;
+
+        if(!ids || ids.length === 0){
+            return;
+        }
+
+        ids.forEach(templateId=>{
+
+            const k =
+            templateId + "|" + dateKey;
+
+            if(!map[k]){
+
+                map[k] = true;
+                changed = true;
+
+            }
+
+        });
+
+    });
+
+    if(changed){
+
+        saveDeletedInstances(map);
+
+    }
 
 }
 
@@ -456,7 +477,7 @@ window.addEventListener(
 
         loadTrash();
 
-        syncDeletedRepeatIdsFromTrash();
+        migrateDeletedRepeatInstances();
 
         generateRepeatTasks();
 
