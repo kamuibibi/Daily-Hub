@@ -107,12 +107,6 @@ Chrome / Edge / Safari / Firefox / Samsung Internet
 
 ---
 
-■ デモ
-
-https://kamuibibi.github.io/Daily-Hub/
-
----
-
 ■ ライセンス
 
 購入者1名による個人・商用プロジェクトへの利用可。
