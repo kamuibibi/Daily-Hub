@@ -165,7 +165,12 @@ ja: {
     "search.task_done": "完了",
     "search.task_undone": "未完了",
     "search.attach_label": "添付",
-    "search.download_btn": "ダウンロード"
+    "search.download_btn": "ダウンロード",
+
+    "stats.storage_api_title": "ストレージ使用状況",
+    "stats.storage_api_used": "使用中",
+    "stats.storage_api_percent": "使用率",
+    "stats.storage_api_unavailable": "このブラウザはStorage APIに非対応です"
 
 },
 
@@ -326,7 +331,12 @@ en: {
     "search.task_done": "Done",
     "search.task_undone": "Not done",
     "search.attach_label": "Attachment",
-    "search.download_btn": "Download"
+    "search.download_btn": "Download",
+
+    "stats.storage_api_title": "Storage Usage",
+    "stats.storage_api_used": "Used",
+    "stats.storage_api_percent": "Usage rate",
+    "stats.storage_api_unavailable": "Storage API not supported in this browser"
 
 }
 
