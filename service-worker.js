@@ -4,26 +4,26 @@
 ===================== */
 
 const CACHE_NAME =
-"dailyhub-v16";
+"dailyhub-v17";
 
 const ASSETS = [
     "./",
     "./index.html",
     "./style.css",
-    "./app.js",
-    "./db.js",
-    "./calendar.js",
-    "./memo.js",
-    "./task.js",
-    "./attachment.js",
-    "./search.js",
-    "./stats.js",
-    "./backup.js",
-    "./settings.js",
-    "./i18n.js",
-    "./reminder.js",
-    "./repeat.js",
-    "./trash.js",
+    "./js/app.js",
+    "./js/db.js",
+    "./js/calendar.js",
+    "./js/memo.js",
+    "./js/task.js",
+    "./js/attachment.js",
+    "./js/search.js",
+    "./js/stats.js",
+    "./js/backup.js",
+    "./js/settings.js",
+    "./js/i18n.js",
+    "./js/reminder.js",
+    "./js/repeat.js",
+    "./js/trash.js",
     "./manifest.json",
     "./icon.svg"
 ];
